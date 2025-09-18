@@ -1,0 +1,24 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer utilities {
+  .dotted-bg {
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: #e5e7eb;
+  }
+}
