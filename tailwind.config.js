@@ -1,18 +1,15 @@
 /** @type {import('tailwindcss').Config} */
-const defaultConfig = require("shadcn/ui/tailwind.config")
-
 module.exports = {
-  ...defaultConfig,
-  content: ["./index.html", "./src/**/*.{js,jsx}", "*.{js,ts,jsx,tsx,mdx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx}",
+  ],
   theme: {
-    ...defaultConfig.theme,
     extend: {
-      ...defaultConfig.theme.extend,
       colors: {
-        ...defaultConfig.theme.extend.colors,
-        primary: "#1E40AF",
-        accent: "#DC2626",
-        neutral: "#F8FAFF",
+        primary: "#1E40AF", // Blue
+        accent: "#DC2626",  // Red
+        neutral: "#F8FAFF", // White-ish
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "Roboto", "sans-serif"],
@@ -29,5 +26,5 @@ module.exports = {
       },
     },
   },
-  plugins: [...defaultConfig.plugins, require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate")],
 }
