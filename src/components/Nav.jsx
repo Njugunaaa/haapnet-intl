@@ -42,17 +42,16 @@ const Nav = () => {
 
   return (
     <motion.nav
-      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
-        isScrolled ? "shadow-lg" : ""
-      }`}
+      className={`fixed top-4 transform -translate-x-1/2 z-50 flex justify-end w-full transition-all duration-300 }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-nav-gradient rounded-full px-6 py-3 mx-4">
+      <div className={`bg-blue-400 rounded-full relative px-6 py-3 mx-4  ${
+        isScrolled ? "shadow-lg" : ""}`}>
         <div className="flex items-center justify-between max-w-container">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2 mr-4">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
               <span className="text-primary font-bold text-lg">H</span>
             </div>

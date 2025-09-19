@@ -50,7 +50,7 @@ export default function RootLayout({
         <meta name="twitter:site" content="@haapnet" />
 
         <link rel="canonical" href="https://haapnet.org" />
-        <link rel="alternate" hreflang="en" href="https://haapnet.org" />
+        <link rel="alternate" hrefLang="en" href="https://haapnet.org" />
 
         <script
           type="application/ld+json"
