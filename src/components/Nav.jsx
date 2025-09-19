@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Link, useLocation } from "react-router-dom"
-import { motion } from "framer-motion"
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Nav = () => {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const location = useLocation()
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -38,7 +38,7 @@ const Nav = () => {
     },
     { name: "Get Involved!", path: "/get-involved" },
     { name: "Contact", path: "/contact" },
-  ]
+  ];
 
   return (
     <motion.nav
@@ -47,15 +47,22 @@ const Nav = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className={`bg-blue-400 rounded-full relative px-6 py-3 mx-4  ${
-        isScrolled ? "shadow-lg" : ""}`}>
+      <div
+  className={`relative px-6 py-3 mx-4 transition-all duration-300 
+    ${isScrolled ? "shadow-lg" : ""} 
+    bg-[#970303bb]/50 backdrop-blur-md border border-white/20
+    ${isMobileMenuOpen ? "rounded-xl" : "rounded-full"}
+  `}
+>
         <div className="flex items-center justify-between max-w-container">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 mr-4">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
               <span className="text-primary font-bold text-lg">H</span>
             </div>
-            <span className="text-white font-bold text-xl hidden sm:block">HAAPNET</span>
+            <span className="text-white font-bold text-xl hidden sm:block">
+              HAAPNET
+            </span>
           </Link>
 
           {/* Desktop Menu */}
@@ -73,13 +80,19 @@ const Nav = () => {
                 </Link>
 
                 {item.dropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div
+                    className="absolute top-full left-0 mt-2 w-48 
+                  bg-[#970303bb]/50 backdrop-blur-md border border-white/20 
+                  rounded-lg shadow-lg opacity-0 invisible 
+                  group-hover:opacity-100 group-hover:visible 
+                  transition-all duration-200"
+                  >
                     <div className="py-2">
                       {item.dropdown.map((dropItem) => (
                         <Link
                           key={dropItem.name}
                           to={dropItem.path}
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
+                          className="block px-4 py-2 text-white hover:bg-white/10 rounded-md transition-colors"
                         >
                           {dropItem.name}
                         </Link>
@@ -99,11 +112,19 @@ const Nav = () => {
           >
             <div className="w-6 h-6 flex flex-col justify-center space-y-1">
               <span
-                className={`block h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-1" : ""}`}
+                className={`block h-0.5 bg-white transition-all ${
+                  isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
+                }`}
               ></span>
-              <span className={`block h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}></span>
               <span
-                className={`block h-0.5 bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-1" : ""}`}
+                className={`block h-0.5 bg-white transition-all ${
+                  isMobileMenuOpen ? "opacity-0" : ""
+                }`}
+              ></span>
+              <span
+                className={`block h-0.5 bg-white transition-all ${
+                  isMobileMenuOpen ? "-rotate-45 -translate-y-1" : ""
+                }`}
               ></span>
             </div>
           </button>
@@ -146,7 +167,7 @@ const Nav = () => {
         )}
       </div>
     </motion.nav>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;
