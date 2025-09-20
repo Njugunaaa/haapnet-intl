@@ -6,7 +6,7 @@ export const heroSlides = [
     subheadline: "Skills, resources and local leadership for a resilient future.",
     cta: "Find Out About Us",
     ctaLink: "/about",
-    image: 'images/IMG-20250919-WA0011.jpg',
+    image: 'images/11.jpg',
   },
   {
     id: 2,
@@ -14,7 +14,7 @@ export const heroSlides = [
     subheadline: "Training, business support, and community projects.",
     cta: "Get Involved",
     ctaLink: "/get-involved",
-    image: 'images/IMG-20250919-WA0012.jpg',
+    image: 'images/8.jpg',
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ export const heroSlides = [
     subheadline: "Income generation and sustainable project models.",
     cta: "Support Our Work",
     ctaLink: "/achievements",
-    image: 'images/IMG-20250919-WA0013.jpg',
+    image: 'images/15.jpg',
   },
   {
     id: 4,
@@ -30,6 +30,6 @@ export const heroSlides = [
     subheadline: "Volunteer, partner or donate to scale impact.",
     cta: "Contact Us",
     ctaLink: "/contact",
-    image: 'images/IMG-20250919-WA0014.jpg',
+    image: 'images/12.jpg',
   },
 ]

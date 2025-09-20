@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Nav = () => {
@@ -42,34 +42,34 @@ const Nav = () => {
 
   return (
     <motion.nav
-      className={`fixed top-4 transform -translate-x-1/2 z-50 flex justify-end w-full transition-all duration-300 }`}
+      className={`fixed top-4 transform -translate-x-1/2 z-50 flex justify-center w-full transition-all duration-300 }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div
-  className={`relative px-6 py-3 mx-4 transition-all duration-300 
-    ${isScrolled ? "shadow-lg" : ""} 
-    bg-[#970303bb]/50 backdrop-blur-md border border-white/20
+  className={`relative px-6 py-3 mx-4 transition-all duration-300 bg-[#970303bb] 
+    ${isScrolled ? "shadow-lg bg-[#970303bb]/50" : ""} 
+     backdrop-blur-md border border-white/20
     ${isMobileMenuOpen ? "rounded-xl" : "rounded-full"}
   `}
 >
         <div className="flex items-center justify-between max-w-container">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 mr-4">
+          <NavLink to="/" className="flex items-center space-x-2 mr-4">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
               <span className="text-primary font-bold text-lg">H</span>
             </div>
-            <span className="text-white font-bold text-xl hidden sm:block">
+            {/* <span className="text-white font-bold text-xl hidden sm:block">
               HAAPNET
-            </span>
-          </Link>
+            </span> */}
+          </NavLink>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
-                <Link
+                <NavLink
                   to={item.path}
                   className={`text-white hover:text-gray-200 transition-colors font-medium ${
                     location.pathname === item.path ? "text-gray-200" : ""
@@ -77,7 +77,7 @@ const Nav = () => {
                 >
                   {item.name}
                   {item.dropdown && <span className="ml-1">▾</span>}
-                </Link>
+                </NavLink>
 
                 {item.dropdown && (
                   <div
@@ -89,13 +89,13 @@ const Nav = () => {
                   >
                     <div className="py-2">
                       {item.dropdown.map((dropItem) => (
-                        <Link
+                        <NavLink
                           key={dropItem.name}
                           to={dropItem.path}
                           className="block px-4 py-2 text-white hover:bg-white/10 rounded-md transition-colors"
                         >
                           {dropItem.name}
-                        </Link>
+                        </NavLink>
                       ))}
                     </div>
                   </div>

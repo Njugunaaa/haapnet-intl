@@ -87,13 +87,12 @@ const AboutTeaser = () => {
           <motion.div variants={itemVariants} className="lg:order-2">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="images/IMG-20250919-WA0026.jpg"
+                src="images/5.jpg"
                 alt="Community members participating in a HAAPNET training program"
                 className="w-full h-96 object-cover object-top"
                 onError={handleImageError}
                 loading="lazy"
               />
-
               {/* Overlay Card */}
               <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg">
                 <h3 className="font-bold text-gray-900 mb-2">Local Impact</h3>

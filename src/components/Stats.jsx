@@ -66,7 +66,7 @@ const Stats = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-r from-primary to-accent relative overflow-hidden">
+    <section className="py-20 bg-red-400 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 dotted-bg"></div>
