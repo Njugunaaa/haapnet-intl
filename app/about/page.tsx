@@ -1,9 +1,18 @@
-// This file makes the /about route accessible.
+// app/about/page.tsx
+"use client";
 
-"use client"; // This is necessary if your About component is a client component
+import { Suspense, lazy } from "react";
+import EventsPageSkeleton from "../../src/components/PageSkeleton"; // Updated to use the new skeleton
 
-import About from "../../src/pages/About";
+// Lazy load the About component - no artificial delay
+const About = lazy(() => import("../../src/pages/About"));
 
 export default function AboutPage() {
-  return <About />;
+  return (
+    <div style={{ minHeight: '100vh' }}>
+      <Suspense fallback={<EventsPageSkeleton />}>
+        <About />
+      </Suspense>
+    </div>
+  );
 }

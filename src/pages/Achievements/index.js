@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { handleImageError } from "../../utils/imagePlaceholder"
+import HeroSection from '../../components/HeroSection'
 
 const Achievements = () => {
   const [selectedCategory, setSelectedCategory] = useState("all")
@@ -162,23 +163,16 @@ const Achievements = () => {
       transition={{ duration: 0.5 }}
       className="pt-24"
     >
+
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-accent text-white">
-        <div className="max-w-container mx-auto px-4">
-          <motion.div
-            className="text-center max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance">Our Achievements</h1>
-            <p className="text-xl md:text-2xl text-white/90 leading-relaxed text-pretty">
-              Discover the real impact of our community development programs across Kenya. Each project represents
-              collaboration, innovation, and sustainable change.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <HeroSection 
+        title="Our Achievements"
+        description="Discover the real impact of our community development programs across Kenya. Each project represents
+              collaboration, innovation, and sustainable change."
+        gradientFrom="from-orange-600"
+        gradientVia="via-orange-500"
+        gradientTo="to-yellow-400"
+      />
 
       {/* Filter Tabs */}
       <section className="py-8 bg-white border-b">

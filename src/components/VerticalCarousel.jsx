@@ -68,8 +68,8 @@ const VerticalCarousel = () => {
                 </svg>
               </button>
 
-              {/* Custom Pagination Dots
-              <div className="swiper-pagination-custom flex flex-col items-center py-4"></div> */}
+              {/* Custom Pagination Dots */}
+              {/* <di className="swiper-pagination-custom flex flex-col items-center py-4"></di */}
 
               {/* Down Button (Next) */}
               <button

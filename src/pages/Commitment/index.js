@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { handleImageError } from "../../utils/imagePlaceholder"
+import HeroSection from '../../components/HeroSection'
 
 const Commitment = () => {
   const commitments = [
@@ -146,22 +147,14 @@ const Commitment = () => {
       className="pt-24"
     >
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-accent to-primary text-white">
-        <div className="max-w-container mx-auto px-4">
-          <motion.div
-            className="text-center max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance">Our Commitment</h1>
-            <p className="text-xl md:text-2xl text-white/90 leading-relaxed text-pretty">
-              Four core values guide everything we do: Local Focus, Transparency, Sustainability, and Inclusivity. These
-              principles ensure our work creates lasting, meaningful change.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <HeroSection 
+        title="Our Commitment"
+        description="Four core values guide everything we do: Local Focus, Transparency, Sustainability, and Inclusivity. These
+              principles ensure our work creates lasting, meaningful change."
+        gradientFrom="from-green-600"
+        gradientVia="via-green-500"
+        gradientTo="to-emerald-400"
+      />
 
       {/* Core Commitments */}
       <section className="py-20 bg-white">

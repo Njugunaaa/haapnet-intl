@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { handleImageError } from "../../utils/imagePlaceholder"
+import HeroSection from '../../components/HeroSection'
 
 const News = () => {
   const [selectedCategory, setSelectedCategory] = useState("all")
@@ -273,23 +274,15 @@ const News = () => {
       transition={{ duration: 0.5 }}
       className="pt-24"
     >
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-accent to-primary text-white">
-        <div className="max-w-container mx-auto px-4">
-          <motion.div
-            className="text-center max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance">News & Updates</h1>
-            <p className="text-xl md:text-2xl text-white/90 leading-relaxed text-pretty">
-              Stay informed about our latest achievements, program updates, and community impact stories from across
-              Kenya.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+    {/* Hero Section */}
+      <HeroSection 
+        title="News & Updates"
+        description="Stay informed about our latest achievements, program updates, and community impact stories from across
+              Kenya."
+        gradientFrom="from-red-600"
+        gradientVia="via-red-500"
+        gradientTo="to-rose-400"
+      />
 
       {/* Filter Tabs */}
       <section className="py-8 bg-white border-b">
