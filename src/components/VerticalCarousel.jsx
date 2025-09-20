@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link";
 import { motion } from "framer-motion"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination, Autoplay, Keyboard, A11y } from "swiper/modules"
@@ -163,7 +163,7 @@ const VerticalCarousel = () => {
 
                           {/* CTA Link */}
                           <Link
-                            to={slide.ctaLink}
+                            href={slide.ctaLink}
                             className="inline-flex items-center text-white hover:text-blue-200 font-medium transition-colors duration-200 text-sm sm:text-base"
                             aria-label={`${slide.cta} - Learn more about ${slide.headline}`}
                           >

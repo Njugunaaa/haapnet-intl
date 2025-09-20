@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from "react-router-dom"
+import Link from "next/link";
 import { motion } from "framer-motion"
 import { handleImageError } from "../utils/imagePlaceholder"
 
@@ -145,7 +145,7 @@ const NewsPreview = () => {
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">Recent News</h3>
               <Link 
-                to="/news" 
+                href="/news" 
                 className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
               >
                 View All →
@@ -183,7 +183,7 @@ const NewsPreview = () => {
                       </div>
 
                       <h4 className="text-lg font-semibold text-gray-900 mb-3 hover:text-blue-600 transition-colors duration-200">
-                        <Link to={`/news/${item.slug}`}>
+                        <Link href={`/news/${item.slug}`}>
                           {item.title}
                         </Link>
                       </h4>
@@ -191,7 +191,7 @@ const NewsPreview = () => {
                       <p className="text-gray-600 text-sm leading-relaxed mb-4">{item.excerpt}</p>
 
                       <Link
-                        to={`/news/${item.slug}`}
+                        href={`/news/${item.slug}`}
                         className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors duration-200"
                       >
                         Read More
@@ -221,7 +221,7 @@ const NewsPreview = () => {
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">Upcoming Events</h3>
               <Link
-                to="/events"
+                href="/events"
                 className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
               >
                 View All →
@@ -277,7 +277,7 @@ const NewsPreview = () => {
                 Get the latest updates on our programs and impact.
               </p>
               <Link
-                to="/contact"
+                href="/contact"
                 className="inline-block px-4 py-2 bg-white text-blue-600 font-medium rounded hover:bg-gray-50 transition-colors duration-200"
               >
                 Subscribe Now

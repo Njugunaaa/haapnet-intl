@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { handleImageError } from "../utils/imagePlaceholder"
+import { handleImageError } from "../../utils/imagePlaceholder"
 
 const News = () => {
   const [selectedCategory, setSelectedCategory] = useState("all")

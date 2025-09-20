@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from "react-router-dom"
+import Link from "next/link";
 import { motion } from "framer-motion"
 import { handleImageError } from "../utils/imagePlaceholder"
 
@@ -54,8 +54,8 @@ const AboutTeaser = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/about"
+              <Link 
+              href="/about"
                 className="inline-flex items-center px-6 py-3 bg-primary hover:bg-blue-800 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
               >
                 Read More About Us
@@ -75,7 +75,7 @@ const AboutTeaser = () => {
               </Link>
 
               <Link
-                to="/commitment"
+                href="/commitment"
                 className="inline-flex items-center px-6 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
               >
                 Our Commitment

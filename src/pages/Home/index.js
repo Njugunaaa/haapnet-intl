@@ -1,11 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import VerticalCarousel from "../components/VerticalCarousel"
-import AboutTeaser from "../components/AboutTeaser"
-import WhatWeDoList from "../components/WhatWeDoList"
-import Stats from "../components/Stats"
-import NewsPreview from "../components/NewsPreview"
+import VerticalCarousel from "../../components/VerticalCarousel"
+import AboutTeaser from "../../components/AboutTeaser"
+import WhatWeDoList from "../../components/WhatWeDoList"
+import Stats from "../../components/Stats"
+import NewsPreview from "../../components/NewsPreview"
 
 const Home = () => {
   return (

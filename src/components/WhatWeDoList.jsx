@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from "react-router-dom"
+import Link from "next/link";
 import { motion } from "framer-motion"
 import { handleImageError } from "../utils/imagePlaceholder"
 
@@ -119,7 +119,7 @@ const WhatWeDoList = () => {
 
                   {/* CTA Link */}
                   <Link
-                    to={service.link}
+                    href={service.link}
                     className="inline-flex items-center text-white hover:text-blue-200 font-medium transition-colors duration-200 text-sm sm:text-base"
                     aria-label={`Learn more about ${service.title}`}
                   >
@@ -154,7 +154,7 @@ const WhatWeDoList = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Link
-            to="/achievements"
+            href="/achievements"
             className="inline-flex items-center px-8 py-4 bg-accent hover:bg-red-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-500/50"
           >
             View All Our Work

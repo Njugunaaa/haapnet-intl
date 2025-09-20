@@ -1,5 +1,7 @@
 import type React from "react"
 import "../src/index.css"
+import Nav from "../src/components/Nav.jsx"
+import Footer from "../src/components/Footer.jsx"
 
 export const metadata = {
   title: "HAAPNET - Harvest-time Apostolic And Prophetic NETwork",
@@ -79,7 +81,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <div className="min-h-screen bg-white">
+          <Nav />
+          {children} {/* This is where your page content will render */}
+          <Footer />
+        </div>
+      </body>
     </html>
   )
 }
