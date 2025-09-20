@@ -20,5 +20,35 @@
     background-image: radial-gradient(currentColor 1px, transparent 1px);
     background-size: 20px 20px;
     color: #e5e7eb;
+    position: relative;
   }
 }
+
+/* Make the whole scrollbar track slim */
+::-webkit-scrollbar {
+  width: 10px;   /* reduce track width */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 20px;
+}
+
+/* Thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #002078;
+  border-radius: 20px;
+
+  /* Keep some spacing so thumb doesn’t touch walls */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+
+  min-height: 40px;
+}
+
+/* Thumb hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #001450;
+}
+

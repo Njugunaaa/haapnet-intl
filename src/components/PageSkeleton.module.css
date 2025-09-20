@@ -1,0 +1,317 @@
+/* src/components/PageSkeleton.module.css */
+
+.skeletonContainer {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding-top: 96px; /* pt-24 equivalent - matches About page */
+}
+
+/* Hero Section - matches About page gradient */
+.heroSection {
+  width: 100%;
+  padding: 80px 20px;
+  background: linear-gradient(to right, #1e40af, #dc2626); /* from-primary to-accent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroContent {
+  max-width: 1024px;
+  width: 100%;
+  text-align: center;
+}
+
+.titleSkeleton {
+  width: 300px;
+  height: 48px;
+  margin: 0 auto 24px auto;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+.subtitleSkeleton {
+  width: 600px;
+  height: 24px;
+  margin: 0 auto 12px auto;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.subtitleSkeletonShort {
+  width: 400px;
+  height: 24px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+/* White Sections */
+.whiteSection {
+  width: 100%;
+  background-color: white;
+  padding: 80px 20px;
+}
+
+.sectionContent {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+/* Mission/Vision/Values Cards */
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 48px;
+  margin-top: 32px;
+}
+
+.cardSkeleton {
+  text-align: center;
+}
+
+.iconSkeleton {
+  width: 64px;
+  height: 64px;
+  background-color: #e5e7eb;
+  border-radius: 50%;
+  margin: 0 auto 24px auto;
+}
+
+.cardTitle {
+  width: 150px;
+  height: 28px;
+  margin: 0 auto 16px auto;
+  background-color: #f3f4f6;
+  border-radius: 4px;
+}
+
+.cardText {
+  width: 100%;
+  height: 16px;
+  margin: 0 0 8px 0;
+  background-color: #f9fafb;
+  border-radius: 4px;
+}
+
+.cardTextShort {
+  width: 80%;
+  height: 16px;
+  margin: 0 auto;
+  background-color: #f9fafb;
+  border-radius: 4px;
+}
+
+/* Grey Section - Story */
+.greySection {
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 80px 20px;
+}
+
+.storyContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.storyText {
+  space-y: 24px;
+}
+
+.sectionTitle {
+  width: 200px;
+  height: 36px;
+  margin-bottom: 24px;
+  background-color: #e5e7eb;
+  border-radius: 6px;
+}
+
+.storyLine {
+  width: 100%;
+  height: 16px;
+  margin-bottom: 12px;
+  background-color: #f3f4f6;
+  border-radius: 4px;
+}
+
+.storyLineShort {
+  width: 75%;
+  height: 16px;
+  margin-bottom: 12px;
+  background-color: #f3f4f6;
+  border-radius: 4px;
+}
+
+.storyImage {
+  width: 100%;
+  height: 384px; /* h-96 equivalent */
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.imageSkeleton {
+  width: 100%;
+  height: 100%;
+  background-color: #e5e7eb;
+  border-radius: 16px;
+}
+
+/* Team Section */
+.teamHeader {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.teamSubtitle {
+  width: 400px;
+  height: 20px;
+  margin: 16px auto 0 auto;
+  background-color: #f3f4f6;
+  border-radius: 4px;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.teamCard {
+  height: 320px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.teamImageSkeleton {
+  width: 100%;
+  height: 100%;
+  background-color: #e5e7eb;
+}
+
+/* CTA Section */
+.ctaSection {
+  width: 100%;
+  padding: 80px 20px;
+  background: linear-gradient(to right, #1e40af, #dc2626);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaContent {
+  max-width: 1024px;
+  width: 100%;
+  text-align: center;
+}
+
+.ctaTitle {
+  width: 300px;
+  height: 36px;
+  margin: 0 auto 24px auto;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+}
+
+.ctaText {
+  width: 500px;
+  height: 20px;
+  margin: 0 auto 32px auto;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.buttonSkeleton {
+  width: 140px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+}
+
+/* Base skeleton animation */
+.skeletonLine {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite ease-in-out;
+}
+
+/* Different animation for white sections */
+.whiteSection .skeletonLine,
+.whiteSection .iconSkeleton,
+.whiteSection .teamImageSkeleton,
+.greySection .skeletonLine,
+.greySection .imageSkeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .storyContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  .cardsContainer {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection,
+  .whiteSection,
+  .greySection,
+  .ctaSection {
+    padding: 60px 16px;
+  }
+  
+  .titleSkeleton {
+    width: 250px;
+    height: 40px;
+  }
+  
+  .subtitleSkeleton {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .subtitleSkeletonShort {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .teamGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+  }
+  
+  .teamCard {
+    height: 280px;
+  }
+}

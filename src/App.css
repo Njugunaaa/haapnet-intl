@@ -1,8 +1,3 @@
-/* Additional app-specific styles */
-.swiper-pagination-bullet-active {
-  background-color: #dc2626 !important;
-}
-
 .swiper-button-next,
 .swiper-button-prev {
   color: #dc2626 !important;

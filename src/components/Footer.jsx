@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from "react-router-dom"
+import Link from "next/link";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -43,22 +43,22 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/about" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/commitment" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/commitment" className="text-gray-300 hover:text-white transition-colors">
                   Our Commitment
                 </Link>
               </li>
               <li>
-                <Link to="/achievements" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/achievements" className="text-gray-300 hover:text-white transition-colors">
                   Achievements
                 </Link>
               </li>
               <li>
-                <Link to="/get-involved" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/get-involved" className="text-gray-300 hover:text-white transition-colors">
                   Get Involved
                 </Link>
               </li>
@@ -98,10 +98,10 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">© {currentYear} HAAPNET. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
+            <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">
+            <Link href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">
               Terms of Service
             </Link>
           </div>

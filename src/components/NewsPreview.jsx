@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from "react-router-dom"
+import Link from "next/link";
 import { motion } from "framer-motion"
 import { handleImageError } from "../utils/imagePlaceholder"
 
@@ -13,7 +13,7 @@ const NewsPreview = () => {
         "Our latest training facility will serve over 500 community members with programs in agriculture, business, and technology.",
       date: "2024-01-15",
       category: "News",
-      image: "https://via.placeholder.com/400x250?text=Training+Center",
+      image: "images/poster_1.jpg",
       slug: "skills-training-center-nakuru",
     },
     {
@@ -23,7 +23,7 @@ const NewsPreview = () => {
         "The Kiambu farming cooperative supported by HAAPNET reports their most successful season, with 40% increase in yields.",
       date: "2024-01-10",
       category: "Success Story",
-      image: "https://via.placeholder.com/400x250?text=Harvest+Success",
+      image: "images/16.jpg",
       slug: "kiambu-cooperative-record-harvest",
     },
     {
@@ -33,7 +33,7 @@ const NewsPreview = () => {
         "25 young leaders complete our comprehensive leadership development program, ready to drive change in their communities.",
       date: "2024-01-08",
       category: "Events",
-      image: "https://via.placeholder.com/400x250?text=Youth+Leadership",
+      image: "images/16.jpg",
       slug: "youth-leadership-graduation",
     },
     {
@@ -43,7 +43,7 @@ const NewsPreview = () => {
         "Community-led water infrastructure project in Machakos provides sustainable clean water access to rural families.",
       date: "2024-01-05",
       category: "Projects",
-      image: "https://via.placeholder.com/400x250?text=Water+Project",
+      image: "images/16.jpg",
       slug: "machakos-water-project",
     },
   ]
@@ -76,16 +76,16 @@ const NewsPreview = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, duration: 0.5 },
+      transition: { staggerChildren: 0.05, duration: 0.3 },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.4, ease: "easeOut" },
     },
   }
 
@@ -97,36 +97,58 @@ const NewsPreview = () => {
     })
   }
 
+  const getCategoryColor = (category) => {
+    const colors = {
+      "News": "bg-blue-600",
+      "Success Story": "bg-green-600",
+      "Events": "bg-purple-600",
+      "Projects": "bg-orange-600",
+    }
+    return colors[category] || "bg-gray-600"
+  }
+
+  const getEventTypeColor = (type) => {
+    const colors = {
+      "Workshop": "bg-blue-50 text-blue-700 border-blue-200",
+      "Conference": "bg-green-50 text-green-700 border-green-200",
+      "Training": "bg-purple-50 text-purple-700 border-purple-200",
+    }
+    return colors[type] || "bg-gray-50 text-gray-700 border-gray-200"
+  }
+
   return (
-    <section className="py-20 bg-neutral">
+    <section className="py-16 bg-gray-50">
       <div className="max-w-container mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">Latest News & Events</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto text-pretty">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Latest News & Events</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Stay updated with our latest achievements, upcoming events, and community impact stories.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* News Section */}
           <motion.div
             className="lg:col-span-2"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true }}
           >
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">Recent News</h3>
-              <Link to="/news" className="text-primary hover:text-accent font-semibold transition-colors duration-300">
-                View All News →
+              <Link 
+                href="/news" 
+                className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
+              >
+                View All →
               </Link>
             </div>
 
@@ -135,20 +157,20 @@ const NewsPreview = () => {
                 <motion.article
                   key={item.id}
                   variants={itemVariants}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group"
+                  className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:border-gray-300 transition-all duration-200"
                 >
                   <div className="flex flex-col sm:flex-row">
                     {/* Image */}
-                    <div className="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden">
+                    <div className="sm:w-1/3 h-48 sm:h-auto relative">
                       <img
                         src={item.image || "/placeholder.svg"}
                         alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover"
                         onError={handleImageError}
                         loading="lazy"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="px-3 py-1 bg-accent text-white text-xs font-semibold rounded-full">
+                        <span className={`px-3 py-1 ${getCategoryColor(item.category)} text-white text-xs font-medium rounded`}>
                           {item.category}
                         </span>
                       </div>
@@ -156,21 +178,21 @@ const NewsPreview = () => {
 
                     {/* Content */}
                     <div className="sm:w-2/3 p-6">
-                      <div className="flex items-center text-sm text-gray-500 mb-2">
+                      <div className="text-sm text-gray-500 mb-2">
                         <time dateTime={item.date}>{formatDate(item.date)}</time>
                       </div>
 
-                      <h4 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors duration-300">
-                        <Link to={`/news/${item.slug}`} className="text-balance">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3 hover:text-blue-600 transition-colors duration-200">
+                        <Link href={`/news/${item.slug}`}>
                           {item.title}
                         </Link>
                       </h4>
 
-                      <p className="text-gray-600 text-sm leading-relaxed text-pretty">{item.excerpt}</p>
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4">{item.excerpt}</p>
 
                       <Link
-                        to={`/news/${item.slug}`}
-                        className="inline-flex items-center text-primary hover:text-accent font-medium text-sm mt-3 transition-colors duration-300"
+                        href={`/news/${item.slug}`}
+                        className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors duration-200"
                       >
                         Read More
                         <svg className="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,13 +216,13 @@ const NewsPreview = () => {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true }}
           >
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">Upcoming Events</h3>
               <Link
-                to="/events"
-                className="text-primary hover:text-accent font-semibold transition-colors duration-300"
+                href="/events"
+                className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
               >
                 View All →
               </Link>
@@ -211,21 +233,21 @@ const NewsPreview = () => {
                 <motion.div
                   key={event.id}
                   variants={itemVariants}
-                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-accent"
+                  className="bg-white rounded-lg p-5 border border-gray-200 hover:border-gray-300 transition-all duration-200"
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <span className="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded">
+                  <div className="flex items-start justify-between mb-3">
+                    <span className={`px-3 py-1 ${getEventTypeColor(event.type)} text-xs font-medium rounded border`}>
                       {event.type}
                     </span>
-                    <time className="text-sm text-gray-500" dateTime={event.date}>
+                    <time className="text-sm text-gray-500 font-medium" dateTime={event.date}>
                       {formatDate(event.date)}
                     </time>
                   </div>
 
-                  <h4 className="font-bold text-gray-900 mb-2 text-balance">{event.title}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3">{event.title}</h4>
 
                   <p className="text-sm text-gray-600 flex items-center">
-                    <svg className="w-4 h-4 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -245,16 +267,18 @@ const NewsPreview = () => {
               ))}
             </div>
 
-            {/* CTA */}
+            {/* Newsletter CTA */}
             <motion.div
               variants={itemVariants}
-              className="mt-8 p-6 bg-gradient-to-r from-primary to-accent rounded-xl text-white text-center"
+              className="mt-8 p-6 bg-blue-600 rounded-lg text-white"
             >
-              <h4 className="font-bold mb-2">Join Our Newsletter</h4>
-              <p className="text-sm mb-4 text-white/90">Get the latest updates on our programs and impact.</p>
+              <h4 className="font-semibold text-lg mb-2">Join Our Newsletter</h4>
+              <p className="text-sm mb-4 text-blue-100">
+                Get the latest updates on our programs and impact.
+              </p>
               <Link
-                to="/contact"
-                className="inline-block px-4 py-2 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-300"
+                href="/contact"
+                className="inline-block px-4 py-2 bg-white text-blue-600 font-medium rounded hover:bg-gray-50 transition-colors duration-200"
               >
                 Subscribe Now
               </Link>

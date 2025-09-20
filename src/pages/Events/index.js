@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { handleImageError } from "../utils/imagePlaceholder"
+import { handleImageError } from "../../utils/imagePlaceholder"
 
 const Events = () => {
   const [viewMode, setViewMode] = useState("list") // "list" or "calendar"

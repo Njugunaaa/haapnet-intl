@@ -1,21 +1,22 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Link, useLocation } from "react-router-dom"
-import { motion } from "framer-motion"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const Nav = () => {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const location = useLocation()
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -38,25 +39,31 @@ const Nav = () => {
     },
     { name: "Get Involved!", path: "/get-involved" },
     { name: "Contact", path: "/contact" },
-  ]
+  ];
 
   return (
     <motion.nav
-      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
-        isScrolled ? "shadow-lg" : ""
-      }`}
+      className={`fixed top-4 transform -translate-x-1/2 z-50 flex justify-center w-full transition-all duration-300`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-nav-gradient rounded-full px-6 py-3 mx-4">
+      <div
+        className={`relative px-6 py-3 mx-4 transition-all duration-300 bg-[#970303bb] 
+          ${isScrolled ? "shadow-lg bg-[#970303bb]/50" : ""} 
+          backdrop-blur-md border border-white/20
+          ${isMobileMenuOpen ? "rounded-xl" : "rounded-full"}
+        `}
+      >
         <div className="flex items-center justify-between max-w-container">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2 mr-4">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
               <span className="text-primary font-bold text-lg">H</span>
             </div>
-            <span className="text-white font-bold text-xl hidden sm:block">HAAPNET</span>
+            {/* <span className="text-white font-bold text-xl hidden sm:block">
+              HAAPNET
+            </span> */}
           </Link>
 
           {/* Desktop Menu */}
@@ -64,9 +71,10 @@ const Nav = () => {
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
                 <Link
-                  to={item.path}
+                  href={item.path}
                   className={`text-white hover:text-gray-200 transition-colors font-medium ${
-                    location.pathname === item.path ? "text-gray-200" : ""
+                    // Use startsWith for robust active link highlighting
+                    pathname.startsWith(item.path) || (pathname === '/' && item.path === '/') ? "text-gray-200" : ""
                   }`}
                 >
                   {item.name}
@@ -74,13 +82,20 @@ const Nav = () => {
                 </Link>
 
                 {item.dropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div
+                    className="absolute top-full left-0 mt-2 w-48 
+                    bg-[#970303bb]/50 backdrop-blur-md border border-white/20 
+                    rounded-lg shadow-lg opacity-0 invisible 
+                    group-hover:opacity-100 group-hover:visible 
+                    transition-all duration-200"
+                  >
                     <div className="py-2">
                       {item.dropdown.map((dropItem) => (
                         <Link
                           key={dropItem.name}
-                          to={dropItem.path}
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
+                          href={dropItem.path}
+                          className="block px-4 py-2 text-white hover:bg-white/10 rounded-md transition-colors"
+                          onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {dropItem.name}
                         </Link>
@@ -100,28 +115,37 @@ const Nav = () => {
           >
             <div className="w-6 h-6 flex flex-col justify-center space-y-1">
               <span
-                className={`block h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-1" : ""}`}
+                className={`block h-0.5 bg-white transition-all ${
+                  isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
+                }`}
               ></span>
-              <span className={`block h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}></span>
               <span
-                className={`block h-0.5 bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-1" : ""}`}
+                className={`block h-0.5 bg-white transition-all ${
+                  isMobileMenuOpen ? "opacity-0" : ""
+                }`}
+              ></span>
+              <span
+                className={`block h-0.5 bg-white transition-all ${
+                  isMobileMenuOpen ? "-rotate-45 -translate-y-1" : ""
+                }`}
               ></span>
             </div>
           </button>
         </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
+      </div>
+       {/* Mobile Menu - Wrap in AnimatePresence for exit animations */}
+       {isMobileMenuOpen && (
           <motion.div
-            className="lg:hidden mt-4 pt-4 border-t border-white/20"
+            className="lg:hidden absolute top-20 left-1/2 -translate-x-1/2 mt-4 pt-4 border-t border-white/20 
+                      bg-[#970303bb]/50 backdrop-blur-md rounded-xl"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
           >
             {navItems.map((item) => (
-              <div key={item.name} className="py-2">
+              <div key={item.name} className="py-2 px-6">
                 <Link
-                  to={item.path}
+                  href={item.path}
                   className="block text-white hover:text-gray-200 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -132,7 +156,7 @@ const Nav = () => {
                     {item.dropdown.map((dropItem) => (
                       <Link
                         key={dropItem.name}
-                        to={dropItem.path}
+                        href={dropItem.path}
                         className="block text-white/80 hover:text-white transition-colors text-sm"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -145,9 +169,8 @@ const Nav = () => {
             ))}
           </motion.div>
         )}
-      </div>
     </motion.nav>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

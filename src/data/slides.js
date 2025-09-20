@@ -1,3 +1,4 @@
+
 export const heroSlides = [
   {
     id: 1,
@@ -5,7 +6,7 @@ export const heroSlides = [
     subheadline: "Skills, resources and local leadership for a resilient future.",
     cta: "Find Out About Us",
     ctaLink: "/about",
-    image: "https://via.placeholder.com/1600x900?text=Hero+Image+1",
+    image: 'images/11.jpg',
   },
   {
     id: 2,
@@ -13,7 +14,7 @@ export const heroSlides = [
     subheadline: "Training, business support, and community projects.",
     cta: "Get Involved",
     ctaLink: "/get-involved",
-    image: "https://via.placeholder.com/1600x900?text=Hero+Image+2",
+    image: 'images/8.jpg',
   },
   {
     id: 3,
@@ -21,7 +22,7 @@ export const heroSlides = [
     subheadline: "Income generation and sustainable project models.",
     cta: "Support Our Work",
     ctaLink: "/achievements",
-    image: "https://via.placeholder.com/1600x900?text=Hero+Image+3",
+    image: 'images/15.jpg',
   },
   {
     id: 4,
@@ -29,6 +30,6 @@ export const heroSlides = [
     subheadline: "Volunteer, partner or donate to scale impact.",
     cta: "Contact Us",
     ctaLink: "/contact",
-    image: "https://via.placeholder.com/1600x900?text=Hero+Image+4",
+    image: 'images/12.jpg',
   },
 ]

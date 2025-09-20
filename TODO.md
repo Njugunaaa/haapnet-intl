@@ -1,0 +1,1 @@
+- [ ] Update src/data/slides.js to import actual images and assign to heroSlides

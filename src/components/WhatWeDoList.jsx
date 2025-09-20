@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from "react-router-dom"
+import Link from "next/link";
 import { motion } from "framer-motion"
 import { handleImageError } from "../utils/imagePlaceholder"
 
@@ -11,7 +11,7 @@ const WhatWeDoList = () => {
       title: "Skills Training",
       description:
         "Comprehensive training programs in agriculture, business, technology, and life skills to empower community members with practical knowledge.",
-      image: "https://via.placeholder.com/400x300?text=Skills+Training",
+      image: "images/10.jpg",
       features: ["Agricultural techniques", "Business development", "Digital literacy", "Leadership skills"],
       link: "/achievements",
     },
@@ -20,7 +20,7 @@ const WhatWeDoList = () => {
       title: "Income Generation",
       description:
         "Supporting sustainable livelihood projects, microfinance initiatives, and cooperative development to create economic opportunities.",
-      image: "https://via.placeholder.com/400x300?text=Income+Generation",
+      image: "images/9.jpg",
       features: ["Microfinance support", "Cooperative development", "Market linkages", "Financial literacy"],
       link: "/achievements",
     },
@@ -29,7 +29,7 @@ const WhatWeDoList = () => {
       title: "Community Projects",
       description:
         "Collaborative infrastructure and social development projects that address local needs and strengthen community bonds.",
-      image: "https://via.placeholder.com/400x300?text=Community+Projects",
+      image: "images/13.jpg",
       features: ["Infrastructure development", "Health initiatives", "Education support", "Environmental projects"],
       link: "/achievements",
     },
@@ -54,7 +54,7 @@ const WhatWeDoList = () => {
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"
@@ -82,53 +82,64 @@ const WhatWeDoList = () => {
             <motion.div
               key={service.id}
               variants={cardVariants}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+              className="relative h-[280px] sm:h-[320px] bg-white rounded-lg border border-gray-200 overflow-hidden hover:border-gray-300 transition-all duration-200 group"
               whileHover={{ y: -5 }}
             >
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
+              {/* Background Image */}
+              <div className="absolute inset-0">
                 <img
                   src={service.image || "/placeholder.svg"}
                   alt={`${service.title} - HAAPNET program`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   onError={handleImageError}
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+              {/* Gradient Overlay - Black at bottom fading to transparent */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 
-                <p className="text-gray-600 mb-4 leading-relaxed text-pretty">{service.description}</p>
+              {/* Content positioned at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 text-white">
+                <div className="space-y-3 md:space-y-4">
+                  {/* Category Badge */}
+                  <span className="inline-block px-3 py-1 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded">
+                    Our Service
+                  </span>
 
-                {/* Features List */}
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, index) => (
-                    <li key={index} className="flex items-center text-sm text-gray-700">
-                      <svg className="w-4 h-4 text-accent mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                  {/* Title */}
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
+                    {service.title}
+                  </h3>
 
-                {/* CTA */}
-                <Link
-                  to={service.link}
-                  className="inline-flex items-center text-primary hover:text-accent font-semibold transition-colors duration-300"
-                >
-                  Learn More
-                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
+                  {/* Description */}
+                  <p className="text-gray-200 leading-relaxed text-sm sm:text-base line-clamp-3 sm:line-clamp-none">
+                    {service.description}
+                  </p>
+
+                  {/* CTA Link */}
+                  <Link
+                    href={service.link}
+                    className="inline-flex items-center text-white hover:text-blue-200 font-medium transition-colors duration-200 text-sm sm:text-base"
+                    aria-label={`Learn more about ${service.title}`}
+                  >
+                    Learn More
+                    <svg
+                      className="ml-2 w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -143,7 +154,7 @@ const WhatWeDoList = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Link
-            to="/achievements"
+            href="/achievements"
             className="inline-flex items-center px-8 py-4 bg-accent hover:bg-red-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-500/50"
           >
             View All Our Work
