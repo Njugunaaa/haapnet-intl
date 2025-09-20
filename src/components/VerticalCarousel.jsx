@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link";
 import { motion } from "framer-motion"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -15,6 +15,7 @@ import "swiper/css/pagination"
 
 const VerticalCarousel = () => {
   const swiperRef = useRef(null)
+  const [paginationClass, setPaginationClass] = useState(".swiper-pagination-custom");
 
   useEffect(() => {
     // Preload images with fallback
@@ -25,6 +26,18 @@ const VerticalCarousel = () => {
         console.log(`Failed to load image: ${slide.image}`)
       }
     })
+  }, [])
+
+  useEffect(() => {
+    // This code only runs on the client after the component has mounted.
+    const updatePaginationClass = () => {
+      setPaginationClass(window.innerWidth < 640 ? ".swiper-pagination-mobile" : ".swiper-pagination-custom");
+    };
+
+    updatePaginationClass(); // Initial check
+    window.addEventListener("resize", updatePaginationClass); // Update on resize
+
+    return () => window.removeEventListener("resize", updatePaginationClass);
   }, [])
 
   const slideVariants = {
@@ -98,7 +111,7 @@ const VerticalCarousel = () => {
                   clickable: true,
                   bulletClass: "swiper-pagination-bullet-custom",
                   bulletActiveClass: "swiper-pagination-bullet-active-custom",
-                  el: window.innerWidth < 640 ? ".swiper-pagination-mobile" : ".swiper-pagination-custom",
+                  el: paginationClass,
                   renderBullet: function (index, className) {
                     return `<span class="${className}" aria-label="Go to slide ${index + 1}"></span>`
                   },
