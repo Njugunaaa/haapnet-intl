@@ -34,7 +34,6 @@ const About = () => {
       bio: "Skilled educator with expertise in adult learning and capacity building programs.",
       image: "images/16.jpg",
     },
-
   ]
 
   const containerVariants = {
@@ -65,13 +64,13 @@ const About = () => {
       {/* Hero Section */}
       <HeroSection 
         title="About HAAPNET"
-        description=" Harvest-time Apostolic And Prophetic NETwork - Empowering communities through local leadership, sustainable development, and collaborative action.."
-        gradientFrom = "from-blue-600"
-        gradientVia = "via-blue-500"
-        gradientTo = "to-cyan-400"
+        description="Harvest-time Apostolic And Prophetic NETwork - Empowering communities through local leadership, sustainable development, and collaborative action."
+        gradientFrom="from-blue-600"
+        gradientVia="via-blue-500"
+        gradientTo="to-cyan-400"
       />
 
-      {/* Mission, Vision, Values - Enhanced */}
+      {/* Mission, Vision, Values */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -213,7 +212,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Our Story - Enhanced */}
+      {/* Our Story */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -275,7 +274,7 @@ const About = () => {
                     50+
                   </div>
                   <div className="text-sm text-gray-400 mt-1">
-                    Communites Served
+                    Communities Served
                   </div>
                 </div>
                 <div className="text-center">
@@ -298,10 +297,13 @@ const About = () => {
                   <div className="text-2xl md:text-3xl font-bold text-orange-400">
                     85%
                   </div>
-                  <div className="text-sm text-gray-400 mt-1">Success Rate</div>
+                  <div className="text-sm text-gray-400 mt-1">
+                    Success Rate
+                  </div>
                 </div>
               </div>
             </motion.div>
+            
 
             {/* Image */}
             <motion.div
@@ -328,171 +330,136 @@ const About = () => {
           </div>
         </div>
       </section>
+      {/* Additional Info Section */}
+<section className="py-20 bg-gray-50">
+  <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-6 lg:px-12">
+    {/* Text Content */}
+    <div className="space-y-6">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+        Expanding Our Impact Across Africa
+      </h2>
+      <p className="text-lg text-gray-700 leading-relaxed">
+        At Haapnet International, our mission goes beyond Kenya. 
+        We are committed to fostering long-term transformation 
+        in communities across Africa through collaboration, 
+        empowerment, and innovation.
+      </p>
+      <p className="text-lg text-gray-700 leading-relaxed">
+        Our teams actively work with local partners in{" "}
+        <span className="font-semibold">Zambia, Tanzania, Uganda,</span> 
+        and beyond — ensuring that solutions are community-driven, 
+        sustainable, and impactful.
+      </p>
+      <ul className="list-disc pl-5 space-y-2 text-gray-700">
+        <li>Strengthening local leadership & ownership</li>
+        <li>Building partnerships for sustainable development</li>
+        <li>Providing training & tools for economic resilience</li>
+      </ul>
+    </div>
 
-      {/* Team Section - Keep unchanged */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Section Header */}
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">
-              Meet Our Team
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto text-pretty">
-              Dedicated professionals committed to empowering communities and
-              creating sustainable change across Kenya.
-            </p>
-          </motion.div>
+    {/* Image Content */}
+    <div className="relative">
+      <div className="rounded-2xl overflow-hidden shadow-lg">
+        <img
+          src="/images/17.jpg"
+          alt="Haapnet working in Africa"
+          className="w-full h-[400px] object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>
 
-          {/* Staff Grid */}
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            {staffMembers.map((member) => (
-              <motion.div
-                key={member.id}
-                variants={itemVariants}
-                className="relative h-[280px] sm:h-[320px] bg-white rounded-lg border border-gray-200 overflow-hidden hover:border-gray-300 transition-all duration-200 group"
-                whileHover={{ y: -5 }}
-              >
-                {/* Background Image */}
-                <div className="absolute inset-0">
-                  <img
-                    src={member.image || "/placeholder.svg"}
-                    alt={`${member.name} - ${member.position}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={handleImageError}
-                    loading="lazy"
-                  />
-                </div>
 
-                {/* Gradient Overlay - Black at bottom fading to transparent */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+      {/* Meet Our Team */}
+      <section className="bg-gray-50 py-16">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12 text-blue-700">
+            Meet Our Team
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+            <div className="flex flex-col items-center">
+              <img
+                src="/images/team1.jpg"
+                alt="Team Member 1"
+                className="w-32 h-32 object-cover rounded-full mb-4 shadow-lg"
+              />
+              <h3 className="font-semibold">Jane Doe</h3>
+              <p className="text-sm text-gray-500">Project Lead</p>
+            </div>
 
-                {/* Content positioned at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 text-white">
-                  <div className="space-y-3 md:space-y-4">
-                    {/* Category Badge */}
-                    <span className="inline-block px-3 py-1 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded">
-                      Team Member
-                    </span>
+            <div className="flex flex-col items-center">
+              <img
+                src="/images/team2.jpg"
+                alt="Team Member 2"
+                className="w-32 h-32 object-cover rounded-full mb-4 shadow-lg"
+              />
+              <h3 className="font-semibold">John Smith</h3>
+              <p className="text-sm text-gray-500">Operations Manager</p>
+            </div>
 
-                    {/* Name */}
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
-                      {member.name}
-                    </h3>
+            <div className="flex flex-col items-center">
+              <img
+                src="/images/team3.jpg"
+                alt="Team Member 3"
+                className="w-32 h-32 object-cover rounded-full mb-4 shadow-lg"
+              />
+              <h3 className="font-semibold">Mary Johnson</h3>
+              <p className="text-sm text-gray-500">Field Coordinator</p>
+            </div>
 
-                    {/* Position */}
-                    <p className="text-blue-300 font-semibold text-sm sm:text-base">
-                      {member.position}
-                    </p>
-
-                    {/* Bio */}
-                    <p className="text-gray-200 leading-relaxed text-sm sm:text-base line-clamp-3 sm:line-clamp-none">
-                      {member.bio}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+            <div className="flex flex-col items-center">
+              <img
+                src="/images/team4.jpg"
+                alt="Team Member 4"
+                className="w-32 h-32 object-cover rounded-full mb-4 shadow-lg"
+              />
+              <h3 className="font-semibold">James Brown</h3>
+              <p className="text-sm text-gray-500">Partnerships Officer</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Call to Action - Enhanced */}
-      <section className="py-16 md:py-24 relative overflow-hidden">
-        {/* Simple gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-700"></div>
-
-        {/* Dotted pattern overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: "30px 30px",
-          }}
-        ></div>
-
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-flex items-center px-4 py-2 bg-white/20 border border-white/30 rounded-full mb-8">
-              <span className="text-white text-sm font-medium">
-                Join Our Mission
-              </span>
+      {/* Partners Section */}
+      <section className="py-16 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12 text-blue-700">
+            Our Partners
+          </h2>
+          <div className="overflow-hidden">
+            <div className="animate-scroll space-x-12">
+              <img src="/images/partner1.png" alt="Partner 1" className="h-16" />
+              <img src="/images/partner2.png" alt="Partner 2" className="h-16" />
+              <img src="/images/partner3.png" alt="Partner 3" className="h-16" />
+              <img src="/images/partner4.png" alt="Partner 4" className="h-16" />
+              <img src="/images/partner5.png" alt="Partner 5" className="h-16" />
+              <img src="/images/partner1.png" alt="Partner 1" className="h-16" />
+              <img src="/images/partner2.png" alt="Partner 2" className="h-16" />
+              <img src="/images/partner3.png" alt="Partner 3" className="h-16" />
+              <img src="/images/partner4.png" alt="Partner 4" className="h-16" />
+              <img src="/images/partner5.png" alt="Partner 5" className="h-16" />
             </div>
-
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
-              Ready to Make a Difference?
-            </h2>
-            <p className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Join us in empowering communities and creating sustainable change
-              across Kenya. Every contribution makes a real impact.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
-              <motion.a
-                href="/get-involved"
-                className="group inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl text-base md:text-lg"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get Involved
-                <svg
-                  className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </motion.a>
-
-              <motion.a
-                href="/contact"
-                className="group inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold rounded-full transition-all duration-300 backdrop-blur-sm text-base md:text-lg"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Contact Us
-                <svg
-                  className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
-              </motion.a>
-            </div>
-          </motion.div>
+          </div>
         </div>
+        <style jsx>{`
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+          .animate-scroll {
+            display: flex;
+            width: max-content;
+            animation: scroll 20s linear infinite;
+          }
+        `}</style>
       </section>
     </motion.main>
-  );
+  )
 }
 
 export default About

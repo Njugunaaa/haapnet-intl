@@ -1,312 +1,298 @@
 "use client"
-
 import { useEffect, useRef, useState } from "react"
-import Link from "next/link";
-import { motion } from "framer-motion"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Pagination, Autoplay, Keyboard, A11y } from "swiper/modules"
-import { heroSlides } from "../data/slides"
-import { handleImageError } from "../utils/imagePlaceholder"
+import { motion, AnimatePresence } from "framer-motion"
 
-// Import Swiper styles
-import "swiper/css"
-import "swiper/css/navigation"
-import "swiper/css/pagination"
+// Define exactly the 4 slides you want
+const heroSlides = [
+  {
+    id: 1,
+    image: "/images/18.jpg",
+    headline: "Building Resilient Communities Together",
+    subheadline:
+      "We strengthen families, leaders, and networks through skills, faith, and sustainable solutions.",
+    cta: "Learn More",
+    ctaLink: "/education",
+  },
+  {
+    id: 2,
+    image: "/images/19.jpg",
+    headline: "Raising Apostolic and Prophetic Voices",
+    subheadline:
+      "Equipping leaders to transform communities with Kingdom values and practical action.",
+    cta: "View Projects",
+    ctaLink: "/water",
+  },
+  {
+    id: 3,
+    image: "/images/8.jpg",
+    headline: "Creating Pathways for Economic Growth",
+    subheadline:
+      "From small business support to agricultural innovation, we empower people to thrive.",
+    cta: "Explore Impact",
+    ctaLink: "/agriculture",
+  },
+  {
+    id: 4,
+    image: "/images/11.jpg",
+    headline: "Connecting Faith, Action, and Impact",
+    subheadline:
+      "Together, we form a global family that uplifts communities and transforms nations.",
+    cta: "See Results",
+    ctaLink: "/healthcare",
+  },
+]
 
-const VerticalCarousel = () => {
-  const swiperRef = useRef(null)
-  const [paginationClass, setPaginationClass] = useState(".swiper-pagination-custom");
+const ModernVerticalCarousel = () => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [direction, setDirection] = useState(1)
+  const intervalRef = useRef(null)
 
+  // Autoplay
   useEffect(() => {
-    // Preload images with fallback
-    heroSlides.forEach((slide) => {
-      const img = new Image()
-      img.src = slide.image
-      img.onerror = () => {
-        console.log(`Failed to load image: ${slide.image}`)
+    if (isPlaying) {
+      intervalRef.current = setInterval(() => {
+        setDirection(1)
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+      }, 6000)
+    } else {
+      clearInterval(intervalRef.current)
+    }
+    return () => clearInterval(intervalRef.current)
+  }, [isPlaying])
+
+  // Keyboard control
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowUp") {
+        e.preventDefault()
+        setDirection(-1)
+        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault()
+        setDirection(1)
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+      } else if (e.key === " ") {
+        e.preventDefault()
+        setIsPlaying((prev) => !prev)
       }
-    })
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
   }, [])
 
-  useEffect(() => {
-    // This code only runs on the client after the component has mounted.
-    const updatePaginationClass = () => {
-      setPaginationClass(window.innerWidth < 640 ? ".swiper-pagination-mobile" : ".swiper-pagination-custom");
-    };
-
-    updatePaginationClass(); // Initial check
-    window.addEventListener("resize", updatePaginationClass); // Update on resize
-
-    return () => window.removeEventListener("resize", updatePaginationClass);
-  }, [])
-
+  // Enhanced slide transition variants
   const slideVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
+    enter: (direction) => ({
+      y: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94], // Custom smooth easing
+      },
+    },
+    exit: (direction) => ({
+      y: direction > 0 ? "-100%" : "100%",
+      opacity: 0,
+      scale: 1.05,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      },
+    }),
+  }
+
+  // Content animation variants
+  const contentVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (delay) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
+      transition: {
+        delay: delay * 0.1 + 0.3,
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    }),
   }
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Section Header
+    <section className="relative w-screen h-screen overflow-hidden">
+      <AnimatePresence mode="wait" custom={direction}>
         <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          key={currentSlide}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          className="absolute inset-0"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Impact Stories</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover how we're making a difference in communities across Kenya.
-          </p>
-        </motion.div> */}
+          {/* Full, beautiful background image */}
+          <motion.img
+            src={heroSlides[currentSlide].image}
+            alt={heroSlides[currentSlide].headline}
+            className="w-full h-full object-cover"
+            initial={{ scale: 1.02 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 8, ease: "easeOut" }}
+          />
 
-        <div className="relative pt-7">
-          {/* Carousel Container */}
-          <div className="flex items-start gap-4 md:gap-8">
-            {/* Left Navigation - Hidden on very small screens */}
-            <div className="hidden sm:flex flex-col items-center space-y-4 pt-8">
-              {/* Up Button (Previous) */}
-              <button
-                className="swiper-button-prev-custom w-10 h-10 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
-                aria-label="Previous slide (up)"
-              >
-                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                </svg>
-              </button>
-
-              {/* Custom Pagination Dots */}
-              {/* <di className="swiper-pagination-custom flex flex-col items-center py-4"></di */}
-
-              {/* Down Button (Next) */}
-              <button
-                className="swiper-button-next-custom w-10 h-10 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
-                aria-label="Next slide (down)"
-              >
-                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Swiper Container */}
-            <div className="flex-1 h-[400px] sm:h-[500px] overflow-hidden rounded-lg">
-              <Swiper
-                ref={swiperRef}
-                modules={[Navigation, Pagination, Autoplay, Keyboard, A11y]}
-                direction="vertical"
-                spaceBetween={20}
-                slidesPerView={1}
-                navigation={{
-                  nextEl: ".swiper-button-next-custom",
-                  prevEl: ".swiper-button-prev-custom",
-                }}
-                pagination={{
-                  clickable: true,
-                  bulletClass: "swiper-pagination-bullet-custom",
-                  bulletActiveClass: "swiper-pagination-bullet-active-custom",
-                  el: paginationClass,
-                  renderBullet: function (index, className) {
-                    return `<span class="${className}" aria-label="Go to slide ${index + 1}"></span>`
-                  },
-                }}
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true,
-                }}
-                keyboard={{
-                  enabled: true,
-                  onlyInViewport: true,
-                }}
-                a11y={{
-                  prevSlideMessage: "Previous slide",
-                  nextSlideMessage: "Next slide",
-                  firstSlideMessage: "This is the first slide",
-                  lastSlideMessage: "This is the last slide",
-                }}
-                loop={true}
-                className="h-full"
-              >
-                {heroSlides.map((slide, index) => (
-                  <SwiperSlide key={slide.id}>
-                    <motion.div
-                      className="relative h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:border-gray-300 transition-all duration-200 group"
-                      variants={slideVariants}
-                      initial="hidden"
-                      animate="visible"
-                    >
-                      {/* Background Image */}
-                      <div className="absolute inset-0">
-                        <img
-                          src={slide.image || "/placeholder.svg"}
-                          alt={`Background for ${slide.headline}`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          onError={handleImageError}
-                          loading={index === 0 ? "eager" : "lazy"}
-                        />
-                      </div>
-
-                      {/* Gradient Overlay - Black at bottom fading to transparent */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-
-                      {/* Content positioned at bottom */}
-                      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 text-white">
-                        <div className="space-y-3 md:space-y-4">
-                          {/* Category Badge */}
-                          <span className="inline-block px-3 py-1 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded">
-                            Featured Story
-                          </span>
-
-                          {/* Title */}
-                          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
-                            {slide.headline}
-                          </h3>
-
-                          {/* Description */}
-                          <p className="text-gray-200 leading-relaxed text-sm sm:text-base line-clamp-3 sm:line-clamp-none">
-                            {slide.subheadline}
-                          </p>
-
-                          {/* CTA Link */}
-                          <Link
-                            href={slide.ctaLink}
-                            className="inline-flex items-center text-white hover:text-blue-200 font-medium transition-colors duration-200 text-sm sm:text-base"
-                            aria-label={`${slide.cta} - Learn more about ${slide.headline}`}
-                          >
-                            {slide.cta}
-                            <svg
-                              className="ml-2 w-4 h-4"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M17 8l4 4m0 0l-4 4m4-4H3"
-                              />
-                            </svg>
-                          </Link>
-                        </div>
-                      </div>
-
-                      {/* Slide Indicator for Screen Readers */}
-                      <div className="sr-only">
-                        Slide {index + 1} of {heroSlides.length}: {slide.headline}
-                      </div>
-                    </motion.div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+          {/* Localized gradient overlay - ONLY over text area in bottom left */}
+          <div className="absolute inset-0">
+            {/* Bottom left gradient for text readability */}
+            <div className="absolute bottom-0 left-0 w-2/3 md:w-1/2 h-2/3 md:h-1/2 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 w-1/2 md:w-1/3 h-1/2 md:h-1/3 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
           </div>
 
-          {/* Mobile Navigation - Visible only on small screens */}
-          <div className="sm:hidden flex justify-center items-center space-x-4 mt-6">
-            {/* Mobile Up Button */}
-            <button
-              className="swiper-button-prev-custom w-10 h-10 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
-              aria-label="Previous slide"
-            >
-              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-              </svg>
-            </button>
+          {/* Content positioned in bottom left */}
+          <div className="absolute bottom-0 left-0 right-0 flex items-end">
+            <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-16 pb-12 md:pb-16">
+              <div className="max-w-2xl">
+                {/* Category Badge */}
+                <motion.span
+                  custom={0}
+                  variants={contentVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="inline-flex items-center px-4 py-2 bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-100 text-sm font-medium rounded-full mb-4"
+                >
+                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse" />
+                  Featured Story
+                </motion.span>
 
-            {/* Mobile Pagination Dots
-            <div className="swiper-pagination-mobile flex space-x-2"></div> */}
+                {/* Main Headline */}
+                <motion.h1
+                  custom={1}
+                  variants={contentVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4"
+                >
+                  {heroSlides[currentSlide].headline}
+                </motion.h1>
 
-            {/* Mobile Down Button */}
-            <button
-              className="swiper-button-next-custom w-10 h-10 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
-              aria-label="Next slide"
-            >
-              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+                {/* Description */}
+                <motion.p
+                  custom={2}
+                  variants={contentVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed mb-6 max-w-xl"
+                >
+                  {heroSlides[currentSlide].subheadline}
+                </motion.p>
+
+                {/* CTA Button */}
+                <motion.a
+                  href={heroSlides[currentSlide].ctaLink}
+                  custom={3}
+                  variants={contentVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="group inline-flex items-center px-6 py-3 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                >
+                  {heroSlides[currentSlide].cta}
+                  <motion.svg
+                    className="ml-2 w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </motion.svg>
+                </motion.a>
+              </div>
+            </div>
           </div>
+        </motion.div>
+      </AnimatePresence>
 
-          {/* Pause/Play Button */}
+      {/* Progress indicators - MOVED TO RIGHT SIDE */}
+      <div className="absolute right-6 md:right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-20">
+        {heroSlides.map((_, index) => (
           <button
-            className="absolute bottom-4 right-4 z-20 w-10 h-10 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+            key={index}
             onClick={() => {
-              if (swiperRef.current?.swiper.autoplay.running) {
-                swiperRef.current.swiper.autoplay.stop()
-              } else {
-                swiperRef.current?.swiper.autoplay.start()
-              }
+              setDirection(index > currentSlide ? 1 : -1)
+              setCurrentSlide(index)
             }}
-            aria-label="Pause or play carousel autoplay"
+            className={`group relative transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full ${
+              index === currentSlide 
+                ? "w-3 h-12" 
+                : "w-2 h-8 hover:w-2.5 hover:h-10"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
           >
-            <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+            <div className={`w-full h-full rounded-full transition-all duration-300 ${
+              index === currentSlide 
+                ? "bg-white shadow-lg" 
+                : "bg-white/40 group-hover:bg-white/60"
+            }`} />
+            
+            {/* Active slide progress animation */}
+            {index === currentSlide && (
+              <motion.div
+                className="absolute top-0 left-0 w-full bg-blue-400 rounded-full"
+                initial={{ height: 0 }}
+                animate={{ height: "100%" }}
+                transition={{ duration: 6, ease: "linear" }}
+              />
+            )}
           </button>
-        </div>
+        ))}
       </div>
 
-      {/* Custom Styles for Pagination Dots */}
-      <style jsx global>{`
-        .swiper-pagination-bullet-custom {
-          display: block !important;
-          width: 10px !important;
-          height: 10px !important;
-          background: #d1d5db !important;
-          border-radius: 50% !important;
-          cursor: pointer !important;
-          transition: all 0.2s ease !important;
-          border: 2px solid transparent !important;
-          margin: 6px 0 !important;
-          opacity: 1 !important;
-        }
-        
-        .swiper-pagination-bullet-custom:hover {
-          background: #9ca3af !important;
-          transform: scale(1.1) !important;
-        }
-        
-        .swiper-pagination-bullet-active-custom {
-          background: #2563eb !important;
-          border-color: rgba(37, 99, 235, 0.3) !important;
-          transform: scale(1.2) !important;
-        }
-        
-        .swiper-pagination-bullet-active-custom:hover {
-          transform: scale(1.25) !important;
-        }
-        
-        .swiper-pagination-custom {
-          position: static !important;
-          width: auto !important;
-          height: auto !important;
-        }
-        
-        /* Mobile pagination styles */
-        .swiper-pagination-mobile .swiper-pagination-bullet-custom {
-          display: inline-block !important;
-          margin: 0 4px !important;
-        }
-        
-        @media (max-width: 640px) {
-          .swiper-pagination-bullet-custom {
-            width: 8px !important;
-            height: 8px !important;
-            margin: 0 3px !important;
-          }
-        }
-      `}</style>
+      {/* Enhanced Play/Pause Button */}
+      <motion.button
+        onClick={() => setIsPlaying(!isPlaying)}
+        className="absolute bottom-6 right-6 md:bottom-8 md:right-8 w-12 h-12 md:w-14 md:h-14 bg-black/30 backdrop-blur-md border border-white/20 hover:bg-black/50 rounded-full flex items-center justify-center text-white transition-all duration-300 z-20 group"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label={isPlaying ? "Pause autoplay" : "Start autoplay"}
+      >
+        <motion.div
+          initial={false}
+          animate={{ rotate: isPlaying ? 0 : 90 }}
+          transition={{ duration: 0.3 }}
+        >
+          {isPlaying ? (
+            <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+            </svg>
+          ) : (
+            <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          )}
+        </motion.div>
+      </motion.button>
+
+      {/* Slide Counter */}
+      <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-20 text-white">
+        <motion.div
+          key={currentSlide}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-sm md:text-base font-medium"
+        >
+          <span className="text-xl md:text-2xl font-bold">{String(currentSlide + 1).padStart(2, '0')}</span>
+          <span className="text-white/60 mx-2">/</span>
+          <span className="text-white/80">{String(heroSlides.length).padStart(2, '0')}</span>
+        </motion.div>
+      </div>
     </section>
   )
 }
 
-export default VerticalCarousel
+export default ModernVerticalCarousel

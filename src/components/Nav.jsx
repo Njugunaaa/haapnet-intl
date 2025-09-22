@@ -43,27 +43,24 @@ const Nav = () => {
 
   return (
     <motion.nav
-      className={`fixed top-4 transform -translate-x-1/2 z-50 flex justify-center w-full transition-all duration-300`}
+      className="fixed top-6 z-50 flex justify-center w-full transition-all duration-300"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div
-        className={`relative px-6 py-3 mx-4 transition-all duration-300 bg-[#970303bb] 
-          ${isScrolled ? "shadow-lg bg-[#970303bb]/50" : ""} 
+        className={`relative px-8 py-5 mx-4 w-full max-w-7xl transition-all duration-300 bg-[#970303bb]
+          ${isScrolled ? "shadow-lg bg-[#970303bb]/50" : ""}
           backdrop-blur-md border border-white/20
           ${isMobileMenuOpen ? "rounded-xl" : "rounded-full"}
         `}
       >
-        <div className="flex items-center justify-between max-w-container">
+        <div className="flex items-center justify-between max-w-full">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 mr-4">
-            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-              <span className="text-primary font-bold text-lg">H</span>
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+              <span className="text-[#970303] font-bold text-xl">H</span>
             </div>
-            {/* <span className="text-white font-bold text-xl hidden sm:block">
-              HAAPNET
-            </span> */}
           </Link>
 
           {/* Desktop Menu */}
@@ -72,10 +69,11 @@ const Nav = () => {
               <div key={item.name} className="relative group">
                 <Link
                   href={item.path}
-                  className={`text-white hover:text-gray-200 transition-colors font-medium ${
-                    // Use startsWith for robust active link highlighting
-                    pathname.startsWith(item.path) || (pathname === '/' && item.path === '/') ? "text-gray-200" : ""
-                  }`}
+                  className={`relative text-white font-medium transition-colors
+                    ${(pathname === '/' && item.path === '/') || pathname.startsWith(item.path)
+                      ? 'text-gray-200 after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-white after:transition-all after:duration-300'
+                      : 'hover:text-gray-200'
+                    }`}
                 >
                   {item.name}
                   {item.dropdown && <span className="ml-1">▾</span>}
@@ -83,11 +81,11 @@ const Nav = () => {
 
                 {item.dropdown && (
                   <div
-                    className="absolute top-full left-0 mt-2 w-48 
-                    bg-[#970303bb]/50 backdrop-blur-md border border-white/20 
-                    rounded-lg shadow-lg opacity-0 invisible 
-                    group-hover:opacity-100 group-hover:visible 
-                    transition-all duration-200"
+                    className="absolute top-full left-0 mt-2 w-48
+                      bg-[#970303bb]/50 backdrop-blur-md border border-white/20
+                      rounded-lg shadow-lg opacity-0 invisible
+                      group-hover:opacity-100 group-hover:visible
+                      transition-all duration-200"
                   >
                     <div className="py-2">
                       {item.dropdown.map((dropItem) => (
@@ -133,42 +131,42 @@ const Nav = () => {
           </button>
         </div>
       </div>
-       {/* Mobile Menu - Wrap in AnimatePresence for exit animations */}
-       {isMobileMenuOpen && (
-          <motion.div
-            className="lg:hidden absolute top-20 left-1/2 -translate-x-1/2 mt-4 pt-4 border-t border-white/20 
-                      bg-[#970303bb]/50 backdrop-blur-md rounded-xl"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-          >
-            {navItems.map((item) => (
-              <div key={item.name} className="py-2 px-6">
-                <Link
-                  href={item.path}
-                  className="block text-white hover:text-gray-200 transition-colors font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-                {item.dropdown && (
-                  <div className="ml-4 mt-2 space-y-1">
-                    {item.dropdown.map((dropItem) => (
-                      <Link
-                        key={dropItem.name}
-                        href={dropItem.path}
-                        className="block text-white/80 hover:text-white transition-colors text-sm"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {dropItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </motion.div>
-        )}
+      {/* Mobile Menu - Wrap in AnimatePresence for exit animations */}
+      {isMobileMenuOpen && (
+        <motion.div
+          className="lg:hidden absolute top-24 left-1/2 -translate-x-1/2 mt-4 pt-4 border-t border-white/20 w-[95%]
+            bg-[#970303bb]/50 backdrop-blur-md rounded-xl"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+        >
+          {navItems.map((item) => (
+            <div key={item.name} className="py-2 px-6">
+              <Link
+                href={item.path}
+                className="block text-white hover:text-gray-200 transition-colors font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+              {item.dropdown && (
+                <div className="ml-4 mt-2 space-y-1">
+                  {item.dropdown.map((dropItem) => (
+                    <Link
+                      key={dropItem.name}
+                      href={dropItem.path}
+                      className="block text-white/80 hover:text-white transition-colors text-sm"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {dropItem.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </motion.div>
+      )}
     </motion.nav>
   );
 };
