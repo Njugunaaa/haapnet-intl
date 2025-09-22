@@ -33,7 +33,7 @@ const heroSlides = [
   },
   {
     id: 4,
-    image: "/images/22.jpg",
+    image: "/images/21.jpg",
     headline: "Connecting Faith, Action, and Impact",
     subheadline:
       "Together, we form a global family that uplifts communities and transforms nations.",
