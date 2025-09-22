@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 const heroSlides = [
   {
     id: 1,
-    image: "/images/18.jpg",
+    image: "/images/20.jpg",
     headline: "Building Resilient Communities Together",
     subheadline:
       "We strengthen families, leaders, and networks through skills, faith, and sustainable solutions.",
@@ -19,12 +19,12 @@ const heroSlides = [
     headline: "Raising Apostolic and Prophetic Voices",
     subheadline:
       "Equipping leaders to transform communities with Kingdom values and practical action.",
-    cta: "View Projects",
+    "cta": "View Projects",
     ctaLink: "/water",
   },
   {
     id: 3,
-    image: "/images/8.jpg",
+    image: "/images/22.jpg",
     headline: "Creating Pathways for Economic Growth",
     subheadline:
       "From small business support to agricultural innovation, we empower people to thrive.",
@@ -33,7 +33,7 @@ const heroSlides = [
   },
   {
     id: 4,
-    image: "/images/11.jpg",
+    image: "/images/22.jpg",
     headline: "Connecting Faith, Action, and Impact",
     subheadline:
       "Together, we form a global family that uplifts communities and transforms nations.",
@@ -134,25 +134,19 @@ const ModernVerticalCarousel = () => {
           exit="exit"
           className="absolute inset-0"
         >
-          {/* Full, beautiful background image */}
+          {/* 1. Full, beautiful background image */}
           <motion.img
             src={heroSlides[currentSlide].image}
             alt={heroSlides[currentSlide].headline}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top max-w-full max-h-full"
             initial={{ scale: 1.02 }}
             animate={{ scale: 1 }}
             transition={{ duration: 8, ease: "easeOut" }}
           />
 
-          {/* Localized gradient overlay - ONLY over text area in bottom left */}
-          <div className="absolute inset-0">
-            {/* Bottom left gradient for text readability */}
-            <div className="absolute bottom-0 left-0 w-2/3 md:w-1/2 h-2/3 md:h-1/2 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 w-1/2 md:w-1/3 h-1/2 md:h-1/3 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-          </div>
-
-          {/* Content positioned in bottom left */}
-          <div className="absolute bottom-0 left-0 right-0 flex items-end">
+          {/* 2. Content positioned in the bottom left with its own darkening effect */}
+          {/* Key Change: Added the background gradient directly to this div */}
+          <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
             <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-16 pb-12 md:pb-16">
               <div className="max-w-2xl">
                 {/* Category Badge */}
@@ -217,8 +211,8 @@ const ModernVerticalCarousel = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Progress indicators - MOVED TO RIGHT SIDE */}
-      <div className="absolute right-6 md:right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-20">
+      {/* Progress indicators */}
+      <div className="absolute right-6 md:right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-40">
         {heroSlides.map((_, index) => (
           <button
             key={index}
@@ -227,18 +221,18 @@ const ModernVerticalCarousel = () => {
               setCurrentSlide(index)
             }}
             className={`group relative transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full ${
-              index === currentSlide 
-                ? "w-3 h-12" 
+              index === currentSlide
+                ? "w-3 h-12"
                 : "w-2 h-8 hover:w-2.5 hover:h-10"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           >
             <div className={`w-full h-full rounded-full transition-all duration-300 ${
-              index === currentSlide 
-                ? "bg-white shadow-lg" 
+              index === currentSlide
+                ? "bg-white shadow-lg"
                 : "bg-white/40 group-hover:bg-white/60"
             }`} />
-            
+
             {/* Active slide progress animation */}
             {index === currentSlide && (
               <motion.div
@@ -255,7 +249,7 @@ const ModernVerticalCarousel = () => {
       {/* Enhanced Play/Pause Button */}
       <motion.button
         onClick={() => setIsPlaying(!isPlaying)}
-        className="absolute bottom-6 right-6 md:bottom-8 md:right-8 w-12 h-12 md:w-14 md:h-14 bg-black/30 backdrop-blur-md border border-white/20 hover:bg-black/50 rounded-full flex items-center justify-center text-white transition-all duration-300 z-20 group"
+        className="absolute bottom-6 right-6 md:bottom-8 md:right-8 w-12 h-12 md:w-14 md:h-14 bg-black/30 backdrop-blur-md border border-white/20 hover:bg-black/50 rounded-full flex items-center justify-center text-white transition-all duration-300 z-40 group"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         aria-label={isPlaying ? "Pause autoplay" : "Start autoplay"}
@@ -278,7 +272,7 @@ const ModernVerticalCarousel = () => {
       </motion.button>
 
       {/* Slide Counter */}
-      <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-20 text-white">
+      <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-40 text-white">
         <motion.div
           key={currentSlide}
           initial={{ opacity: 0, y: 10 }}

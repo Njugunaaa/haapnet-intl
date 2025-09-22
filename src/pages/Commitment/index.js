@@ -28,7 +28,7 @@ const Commitment = () => {
         "Cultural sensitivity and respect",
         "Grassroots decision-making processes",
       ],
-      image: "https://via.placeholder.com/400x300?text=Local+Focus",
+      image: "/images/11.jpg",
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ const Commitment = () => {
         "Community feedback systems",
         "Public program evaluations",
       ],
-      image: "https://via.placeholder.com/400x300?text=Transparency",
+      image: "/images/10.jpg",
     },
     {
       id: 3,
@@ -75,7 +75,7 @@ const Commitment = () => {
         "Economic viability focus",
         "Knowledge transfer systems",
       ],
-      image: "https://via.placeholder.com/400x300?text=Sustainability",
+      image: "/images/13.jpg",
     },
     {
       id: 4,
@@ -98,7 +98,7 @@ const Commitment = () => {
         "Disability accessibility",
         "Multi-cultural approaches",
       ],
-      image: "https://via.placeholder.com/400x300?text=Inclusivity",
+      image: "/images/12.jpg",
     },
   ]
 

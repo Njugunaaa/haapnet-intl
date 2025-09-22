@@ -361,7 +361,7 @@ const About = () => {
     <div className="relative">
       <div className="rounded-2xl overflow-hidden shadow-lg">
         <img
-          src="/images/17.jpg"
+          src="/images/16.jpg"
           alt="Haapnet working in Africa"
           className="w-full h-[400px] object-cover"
         />

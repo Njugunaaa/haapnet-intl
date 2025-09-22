@@ -7,7 +7,7 @@ export const metadata = {
   title: "HAAPNET - Harvest-time Apostolic And Prophetic NETwork",
   description:
     "Building stronger communities through skills training, local leadership, and sustainable development in Kenya.",
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export default function RootLayout({
@@ -15,6 +15,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const whatsappNumber = "254796313151"; // Replace with your Kenyan number (e.g., 2547XXXXXXXX)
+  const prefilledMessage = "Hello, I'd like to get in touch.";
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(prefilledMessage)}`;
+
   return (
     <html lang="en">
       <head>
@@ -84,8 +88,25 @@ export default function RootLayout({
       <body>
         <div className="min-h-screen bg-white">
           <Nav />
-          {children} {/* This is where your page content will render */}
+          {children}
           <Footer />
+
+          {/* WhatsApp floating button with enhanced styling */}
+          <a
+            href={whatsappLink}
+            className="fixed bottom-20 right-6 z-50 p-4 bg-green-500 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-110 animate-pulse"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with us on WhatsApp"
+          >
+            <svg
+              className="w-10 h-10 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 3.535 1.556 6.727 4.028 8.95L3 24l5.056-1.396A12 12 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zM12 21.5c-2.486 0-4.721-1.01-6.353-2.647L4 20l1.147-3.447C3.59 15.72 3 13.916 3 12c0-4.962 4.038-9 9-9s9 4.038 9 9-4.038 9-9 9zM17.5 15.5c-.247-.123-.532-.185-.75-.185-.246 0-.448.062-.64.185-.205.14-.616.618-.755.772-.137.153-.284.17-.52.066-.234-.103-1.002-.375-1.91-1.173-.703-.614-1.178-1.378-1.317-1.55-.138-.172-.016-.264.093-.377.098-.106.216-.25.32-.378.106-.129.14-.24.21-.378.07-.137.035-.259-.018-.363-.053-.105-.48-.255-.672-.345-.192-.09-.327-.138-.458-.138s-.24.03-.357.172c-.117.143-.454.444-.454.912s.465 1.056.53 1.13c.066.075 1.026 1.573 2.502 2.155 1.474.582 1.474.394 1.74.372.267-.022.868-.354 1.002-.524.136-.17.136-.314.095-.398-.04-.085-.152-.132-.32-.218z" />
+            </svg>
+          </a>
         </div>
       </body>
     </html>
