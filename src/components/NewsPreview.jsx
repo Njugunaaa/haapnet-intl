@@ -8,9 +8,9 @@ const NewsPreview = () => {
   const newsItems = [
     {
       id: 1,
-      title: "New Skills Training Center Opens in Nakuru",
+      title: "New Skills Training in NAirobi by Live Connection",
       excerpt:
-        "Our latest training facility will serve over 500 community members with programs in agriculture, business, and technology.",
+        "In partnership with life source church, our latest training was able to facilitate many pastors to get training on leadership, discipleship among many other things.",
       date: "2024-01-15",
       category: "News",
       image: "images/poster_1.jpg",
@@ -160,12 +160,12 @@ const NewsPreview = () => {
                   className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:border-gray-300 transition-all duration-200"
                 >
                   <div className="flex flex-col sm:flex-row">
-                    {/* Image */}
-                    <div className="sm:w-1/3 h-48 sm:h-auto relative">
+                    {/* Mobile-Optimized Image - Larger container */}
+                    <div className="w-full sm:w-1/3 h-64 sm:h-40 md:h-48 relative">
                       <img
                         src={item.image || "/placeholder.svg"}
                         alt={item.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain sm:object-cover object-center"
                         onError={handleImageError}
                         loading="lazy"
                       />
@@ -177,7 +177,7 @@ const NewsPreview = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="sm:w-2/3 p-6">
+                    <div className="w-full sm:w-2/3 p-4 sm:p-6">
                       <div className="text-sm text-gray-500 mb-2">
                         <time dateTime={item.date}>{formatDate(item.date)}</time>
                       </div>
@@ -233,10 +233,10 @@ const NewsPreview = () => {
                 <motion.div
                   key={event.id}
                   variants={itemVariants}
-                  className="bg-white rounded-lg p-5 border border-gray-200 hover:border-gray-300 transition-all duration-200"
+                  className="bg-white rounded-lg p-4 sm:p-5 border border-gray-200 hover:border-gray-300 transition-all duration-200"
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <span className={`px-3 py-1 ${getEventTypeColor(event.type)} text-xs font-medium rounded border`}>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
+                    <span className={`self-start px-3 py-1 ${getEventTypeColor(event.type)} text-xs font-medium rounded border`}>
                       {event.type}
                     </span>
                     <time className="text-sm text-gray-500 font-medium" dateTime={event.date}>
@@ -244,10 +244,10 @@ const NewsPreview = () => {
                     </time>
                   </div>
 
-                  <h4 className="font-semibold text-gray-900 mb-3">{event.title}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3 text-base sm:text-lg">{event.title}</h4>
 
-                  <p className="text-sm text-gray-600 flex items-center">
-                    <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <p className="text-sm text-gray-600 flex items-start sm:items-center">
+                    <svg className="w-4 h-4 mr-2 mt-0.5 sm:mt-0 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -261,7 +261,7 @@ const NewsPreview = () => {
                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                       />
                     </svg>
-                    {event.location}
+                    <span className="leading-tight">{event.location}</span>
                   </p>
                 </motion.div>
               ))}
@@ -270,7 +270,7 @@ const NewsPreview = () => {
             {/* Newsletter CTA */}
             <motion.div
               variants={itemVariants}
-              className="mt-8 p-6 bg-blue-600 rounded-lg text-white"
+              className="mt-8 p-4 sm:p-6 bg-blue-600 rounded-lg text-white"
             >
               <h4 className="font-semibold text-lg mb-2">Join Our Newsletter</h4>
               <p className="text-sm mb-4 text-blue-100">
@@ -278,7 +278,7 @@ const NewsPreview = () => {
               </p>
               <Link
                 href="/contact"
-                className="inline-block px-4 py-2 bg-white text-blue-600 font-medium rounded hover:bg-gray-50 transition-colors duration-200"
+                className="inline-block px-4 py-2 bg-white text-blue-600 font-medium rounded hover:bg-gray-50 transition-colors duration-200 text-sm sm:text-base"
               >
                 Subscribe Now
               </Link>
