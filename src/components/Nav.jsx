@@ -33,7 +33,7 @@ const Nav = () => {
       path: "/achievements",
       dropdown: [
         { name: "Our Achievements", path: "/achievements" },
-        { name: "News & Updates", path: "/news" },
+        //{ name: "News & Updates", path: "/news" },
         { name: "Events", path: "/events" },
       ],
     },

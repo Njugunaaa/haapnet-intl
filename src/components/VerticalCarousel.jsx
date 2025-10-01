@@ -93,7 +93,7 @@ const ModernVerticalCarousel = () => {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.5,
         ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
@@ -102,7 +102,7 @@ const ModernVerticalCarousel = () => {
       opacity: 0,
       scale: 1.05,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: [0.25, 0.46, 0.45, 0.94],
       },
     }),
@@ -116,7 +116,7 @@ const ModernVerticalCarousel = () => {
       y: 0,
       transition: {
         delay: delay * 0.1 + 0.3,
-        duration: 0.6,
+        duration: 0.5,
         ease: "easeOut",
       },
     }),

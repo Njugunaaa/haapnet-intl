@@ -1,428 +1,444 @@
 "use client"
-
+import React from "react"
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 import { handleImageError } from "../../utils/imagePlaceholder"
 
 const GetInvolved = () => {
+  const [activeCard, setActiveCard] = useState(null)
+  const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 })
+  const [impactStats] = useState({
+    volunteers: 250,
+    communities: 45,
+    projects: 120,
+    beneficiaries: 15000
+  })
+
+  // Handle window dimensions for SSR
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      })
+
+      const handleResize = () => {
+        setWindowDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight
+        })
+      }
+
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   const involvementOptions = [
     {
       id: 1,
       title: "Volunteer",
-      description: "Join our team of dedicated volunteers and make a direct impact in communities across Kenya.",
-      longDescription:
-        "Volunteering with HAAPNET offers meaningful opportunities to contribute your skills and time to community development. Whether you have a few hours a month or can commit to longer-term projects, there's a place for you in our volunteer network.",
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-          />
-        </svg>
-      ),
-      opportunities: [
-        "Skills training facilitation",
-        "Community project support",
-        "Event organization and coordination",
-        "Administrative and office support",
-        "Research and documentation",
-        "Fundraising and outreach",
+      subtitle: "Be the Change",
+      description: "Join hands-on community projects and see direct impact",
+      benefits: [
+        "Gain valuable skills & experience",
+        "Build meaningful connections",
+        "Create lasting community impact",
+        "Flexible time commitment"
       ],
-      commitment: "Flexible - from 4 hours/month to full-time",
-      requirements: ["Passion for community development", "Reliability and commitment", "Basic communication skills"],
-      image: "https://via.placeholder.com/400x300?text=Volunteer+Opportunities",
-      ctaText: "Apply to Volunteer",
-      ctaAction: "volunteer",
+      icon: "👥",
+      formUrl: "https://forms.google.com/volunteer-form", // Replace with your form URL
+      image: "images/11.jpg",
+      stats: { label: "Active Volunteers", number: 250 }
     },
     {
       id: 2,
       title: "Donate",
-      description:
-        "Support our programs with financial contributions that directly fund community development projects.",
-      longDescription:
-        "Your donations enable us to expand our reach, improve our programs, and create lasting change in communities across Kenya. Every contribution, no matter the size, makes a real difference in people's lives.",
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-          />
-        </svg>
-      ),
-      opportunities: [
-        "One-time donations",
-        "Monthly recurring support",
-        "Project-specific funding",
-        "Equipment and resource donations",
-        "Scholarship sponsorships",
-        "Emergency response funding",
+      subtitle: "Fund the Future",
+      description: "Power programs that transform lives across Kenya",
+      benefits: [
+        "100% transparency on fund usage",
+        "Quarterly impact reports",
+        "Tax-deductible contributions",
+        "Choose specific programs to support"
       ],
-      commitment: "Any amount - one-time or recurring",
-      requirements: [
-        "Secure online donation platform",
-        "Tax-deductible receipts provided",
-        "Transparent impact reporting",
-      ],
-      image: "https://via.placeholder.com/400x300?text=Donation+Impact",
-      ctaText: "Make a Donation",
-      ctaAction: "donate",
-    },
-    {
-      id: 3,
-      title: "Partner",
-      description: "Collaborate with us as an organization, business, or institution to amplify our collective impact.",
-      longDescription:
-        "Strategic partnerships allow us to leverage complementary strengths, share resources, and create more comprehensive solutions to community challenges. We welcome partnerships with organizations that share our values and commitment to community-led development.",
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-          />
-        </svg>
-      ),
-      opportunities: [
-        "Corporate social responsibility programs",
-        "Technical expertise sharing",
-        "Resource and equipment provision",
-        "Joint program implementation",
-        "Research and development collaboration",
-        "Advocacy and policy influence",
-      ],
-      commitment: "Varies by partnership type and scope",
-      requirements: [
-        "Alignment with HAAPNET values",
-        "Commitment to community-led development",
-        "Transparent partnership agreements",
-      ],
-      image: "https://via.placeholder.com/400x300?text=Partnership+Opportunities",
-      ctaText: "Explore Partnership",
-      ctaAction: "partner",
-    },
-    {
-      id: 4,
-      title: "Share",
-      description: "Spread awareness about our work and help us reach more communities and potential supporters.",
-      longDescription:
-        "Your voice and network can help us reach new communities, attract volunteers and donors, and build awareness about the importance of community-led development. Sharing our story is a powerful way to multiply our impact.",
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
-          />
-        </svg>
-      ),
-      opportunities: [
-        "Social media sharing and engagement",
-        "Word-of-mouth referrals",
-        "Community presentations",
-        "Blog posts and articles",
-        "Newsletter subscriptions",
-        "Event attendance and promotion",
-      ],
-      commitment: "As much or as little as you can",
-      requirements: ["Genuine interest in our mission", "Access to social networks", "Willingness to share our story"],
-      image: "https://via.placeholder.com/400x300?text=Share+Our+Story",
-      ctaText: "Start Sharing",
-      ctaAction: "share",
-    },
+      icon: "💝",
+      formUrl: "", // Will use Paystack integration
+      image: "images/10.jpg",
+      stats: { label: "Communities Reached", number: 45 }
+    }
   ]
 
-  const impactStories = [
-    {
-      name: "Sarah Mwangi",
-      role: "Volunteer Trainer",
-      story:
-        "Volunteering with HAAPNET has been incredibly rewarding. I've helped train over 100 women in business skills, and seeing their confidence grow is amazing.",
-      image: "https://via.placeholder.com/150x150?text=Sarah+M",
-    },
-    {
-      name: "Tech Solutions Ltd",
-      role: "Corporate Partner",
-      story:
-        "Our partnership with HAAPNET has allowed us to contribute meaningfully to community development while building valuable relationships.",
-      image: "https://via.placeholder.com/150x150?text=Tech+Solutions",
-    },
-    {
-      name: "John Kamau",
-      role: "Monthly Donor",
-      story:
-        "My monthly donation of $25 helps fund training programs. It's incredible to see the quarterly reports showing real impact in communities.",
-      image: "https://via.placeholder.com/150x150?text=John+K",
-    },
+  const quickImpactFacts = [
+    { icon: "⚡", fact: "$25", detail: "Trains one person in business skills" },
+    { icon: "🎯", fact: "$100", detail: "Funds a complete workshop" },
+    { icon: "🌟", fact: "$500", detail: "Supports a community project" },
+    { icon: "🚀", fact: "$1000", detail: "Launches a new program" }
   ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.2, duration: 0.5 },
-    },
+      transition: { staggerChildren: 0.1, duration: 0.5 }
+    }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
   }
 
-  const handleCTA = (action, title) => {
-    switch (action) {
-      case "volunteer":
-        alert(
-          `Volunteer Application: ${title}\n\nThis would open the volunteer application form in a real implementation.`,
-        )
-        break
-      case "donate":
-        alert(
-          `Donation Portal: ${title}\n\nThis would redirect to the secure donation platform in a real implementation.`,
-        )
-        break
-      case "partner":
-        alert(`Partnership Inquiry: ${title}\n\nThis would open the partnership inquiry form in a real implementation.`)
-        break
-      case "share":
-        alert(`Share HAAPNET: ${title}\n\nThis would open social sharing options in a real implementation.`)
-        break
-      default:
-        alert("Contact us for more information!")
+  const Counter = ({ end, duration = 2 }) => {
+    const [count, setCount] = useState(0)
+    
+    React.useEffect(() => {
+      let startTime = null
+      const animate = (currentTime) => {
+        if (startTime === null) startTime = currentTime
+        const progress = Math.min((currentTime - startTime) / (duration * 1000), 1)
+        setCount(Math.floor(progress * end))
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate)
+        }
+      }
+      requestAnimationFrame(animate)
+    }, [end, duration])
+    
+    return count
+  }
+
+  // Paystack integration
+  const payWithPaystack = () => {
+    if (typeof window !== 'undefined' && window.PaystackPop) {
+      const handler = window.PaystackPop.setup({
+        key: 'pk_test_xxxxx', // Replace with your actual public key
+        email: "customer@example.com", 
+        amount: 5000 * 100, // amount in kobo (KES 5000)
+        currency: "KES",
+        channels: ["mobile_money"], // enables mpesa
+        callback: function(response){
+          alert("Payment successful. Ref: " + response.reference);
+        },
+        onClose: function(){
+          alert('Transaction cancelled.');
+        }
+      });
+      handler.openIframe();
+    } else {
+      alert('Paystack is not loaded. Please refresh the page and try again.');
+    }
+  }
+
+  const handleCTA = (option) => {
+    if (option.title === "Donate") {
+      payWithPaystack();
+    } else {
+      window.open(option.formUrl, '_blank');
     }
   }
 
   return (
-    <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="pt-24"
-    >
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-accent to-primary text-white">
-        <div className="max-w-container mx-auto px-4">
-          <motion.div
-            className="text-center max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance">Get Involved</h1>
-            <p className="text-xl md:text-2xl text-white/90 leading-relaxed text-pretty">
-              Join our mission to empower communities across Kenya. Whether through volunteering, donations,
-              partnerships, or simply sharing our story, your involvement makes a real difference.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Ways to Get Involved */}
-      <section className="py-20 bg-white">
-        <div className="max-w-container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">
-              Ways to Make a Difference
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto text-pretty">
-              Choose the way that best fits your interests, skills, and availability. Every form of involvement
-              contributes to our collective impact.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            {involvementOptions.map((option, index) => (
-              <motion.div
-                key={option.id}
-                variants={itemVariants}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
+    <>
+      {/* Paystack Script */}
+      <script src="https://js.paystack.co/v1/inline.js" async></script>
+      
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="pt-24 overflow-hidden"
+      >
+        {/* Hero Section with Animated Background */}
+        <section className="relative py-32 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
+          {/* Animated Background Elements */}
+          {windowDimensions.width > 0 && (
+            <div className="absolute inset-0">
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 bg-white/20 rounded-full"
+                  initial={{ 
+                    x: Math.random() * windowDimensions.width, 
+                    y: Math.random() * windowDimensions.height 
+                  }}
+                  animate={{ 
+                    x: Math.random() * windowDimensions.width,
+                    y: Math.random() * windowDimensions.height,
+                    scale: [1, 1.5, 1],
+                    opacity: [0.2, 0.8, 0.2]
+                  }}
+                  transition={{ 
+                    duration: Math.random() * 10 + 10,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+              ))}
+            </div>
+          )}
+          
+          <div className="relative max-w-7xl mx-auto px-4 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.h1 
+                className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent"
+                initial={{ scale: 0.5 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1, ease: "easeOut" }}
               >
-                <div className="p-8">
-                  {/* Header */}
-                  <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white mr-4">
-                      {option.icon}
+                Join the Movement
+              </motion.h1>
+              <p className="text-2xl md:text-3xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed">
+                Choose your path to empower communities across Kenya
+              </p>
+              
+              {/* Impact Stats */}
+              <motion.div 
+                className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {Object.entries(impactStats).map(([key, value], index) => (
+                  <motion.div key={key} variants={itemVariants} className="text-center">
+                    <div className="text-4xl md:text-5xl font-bold text-yellow-300 mb-2">
+                      <Counter end={value} />
+                      {key === 'beneficiaries' ? 'K+' : '+'}
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">{option.title}</h3>
-                      <p className="text-gray-600">{option.commitment}</p>
+                    <div className="text-blue-200 capitalize text-lg">
+                      {key === 'beneficiaries' ? 'Lives Impacted' : key}
                     </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-gray-700 leading-relaxed mb-6 text-pretty">{option.longDescription}</p>
-
-                  {/* Opportunities */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">Opportunities Include:</h4>
-                    <ul className="space-y-2">
-                      {option.opportunities.slice(0, 4).map((opportunity, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <svg
-                            className="w-4 h-4 text-accent mr-2 mt-0.5 flex-shrink-0"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                          <span className="text-gray-700 text-sm">{opportunity}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Requirements */}
-                  <div className="mb-8">
-                    <h4 className="font-semibold text-gray-900 mb-3">Requirements:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {option.requirements.map((req, idx) => (
-                        <span key={idx} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
-                          {req}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <button
-                    onClick={() => handleCTA(option.ctaAction, option.title)}
-                    className="w-full px-6 py-4 bg-accent hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-500/50"
-                  >
-                    {option.ctaText}
-                  </button>
-                </div>
+                  </motion.div>
+                ))}
               </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Impact Stories */}
-      <section className="py-20 bg-neutral">
-        <div className="max-w-container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            </motion.div>
+          </div>
+          
+          {/* Scroll Indicator */}
+          <motion.div 
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">
-              Stories from Our Community
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto text-pretty">
-              Hear from volunteers, partners, and supporters about their experience making a difference with HAAPNET.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            {impactStories.map((story, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <div className="flex items-center mb-4">
-                  <img
-                    src={story.image || "/placeholder.svg"}
-                    alt={story.name}
-                    className="w-16 h-16 rounded-full object-cover mr-4"
-                    onError={handleImageError}
-                    loading="lazy"
-                  />
-                  <div>
-                    <h4 className="font-bold text-gray-900">{story.name}</h4>
-                    <p className="text-accent text-sm">{story.role}</p>
-                  </div>
-                </div>
-                <p className="text-gray-700 leading-relaxed text-pretty">"{story.story}"</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Quick Action Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-accent text-white">
-        <div className="max-w-container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-balance">Ready to Get Started?</h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto text-pretty">
-              Don't wait to make a difference. Choose your preferred way to get involved and join our community of
-              changemakers today.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                onClick={() => handleCTA("volunteer", "Quick Volunteer")}
-                className="inline-flex items-center px-8 py-4 bg-white text-primary font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/50"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Start Volunteering
-                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </motion.button>
-
-              <motion.button
-                onClick={() => handleCTA("donate", "Quick Donation")}
-                className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary font-semibold rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Make a Donation
-              </motion.button>
-
-              <motion.a
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary font-semibold rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Contact Us
-              </motion.a>
+            <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-white/50 rounded-full mt-2"></div>
             </div>
           </motion.div>
-        </div>
-      </section>
-    </motion.main>
+        </section>
+
+        {/* Main Involvement Options */}
+        <section className="py-24 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <motion.div
+              className="text-center mb-20"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Two Ways to Make Impact
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Every contribution matters. Choose the approach that fits your passion and availability.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              {involvementOptions.map((option, index) => (
+                <motion.div
+                  key={option.id}
+                  variants={itemVariants}
+                  className="group cursor-pointer"
+                  onHoverStart={() => setActiveCard(option.id)}
+                  onHoverEnd={() => setActiveCard(null)}
+                  whileHover={{ y: -10 }}
+                >
+                  {/* Subtle gradient border container */}
+                  <div className="p-1 rounded-3xl bg-gradient-to-r from-blue-100 via-purple-50 to-blue-100 shadow-lg">
+                    <div className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full">
+                      {/* Image Section - Made larger */}
+                      <div className="relative h-80 overflow-hidden">
+                        <motion.img
+                          src={option.image}
+                          alt={`${option.title} program`}
+                          className="w-full h-full object-cover"
+                          onError={handleImageError}
+                          animate={activeCard === option.id ? { scale: 1.1 } : { scale: 1 }}
+                          transition={{ duration: 0.5 }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="text-6xl mb-2">{option.icon}</div>
+                          <div className="text-white">
+                            <div className="text-3xl font-bold">{option.stats.number}+</div>
+                            <div className="text-sm opacity-90">{option.stats.label}</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Content Section - Made larger */}
+                      <div className="p-10">
+                        <div className="mb-8">
+                          <h3 className="text-4xl font-bold text-gray-900 mb-3">{option.title}</h3>
+                          <p className="text-xl text-gray-600 font-medium">{option.subtitle}</p>
+                          <p className="text-gray-700 mt-4 text-lg">{option.description}</p>
+                        </div>
+
+                        {/* Benefits */}
+                        <div className="mb-10">
+                          <h4 className="font-bold text-gray-900 mb-5 text-xl">Why Choose This Path?</h4>
+                          <div className="grid grid-cols-1 gap-4">
+                            {option.benefits.map((benefit, idx) => (
+                              <motion.div
+                                key={idx}
+                                className="flex items-start"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <div className="w-2 h-2 bg-green-500 rounded-full mt-3 mr-4 flex-shrink-0"></div>
+                                <span className="text-gray-700 text-lg">{benefit}</span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* CTA Button - Solid blue */}
+                        <motion.button
+                          onClick={() => handleCTA(option)}
+                          className="block w-full px-8 py-5 bg-blue-600 hover:bg-red-700 text-white font-bold rounded-2xl text-center text-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {option.title === "Donate" ? "Donate Now →" : "Get Started Now →"}
+                        </motion.button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Quick Impact Facts */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Your Impact in Numbers</h2>
+              <p className="text-xl text-gray-600">See exactly how your contribution creates change</p>
+            </motion.div>
+
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-4 gap-6"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {quickImpactFacts.map((fact, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="text-4xl mb-4">{fact.icon}</div>
+                  <div className="text-3xl font-bold text-indigo-600 mb-2">{fact.fact}</div>
+                  <div className="text-gray-700">{fact.detail}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Final CTA Section */}
+        <section className="py-24 bg-gradient-to-r from-purple-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
+          {/* Background Animation */}
+          <div className="absolute inset-0 opacity-10">
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                background: [
+                  "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
+                  "radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%)",
+                  "radial-gradient(circle at 40% 80%, rgba(119, 255, 198, 0.3) 0%, transparent 50%)",
+                  "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
+                ]
+              }}
+              transition={{ duration: 10, repeat: Infinity }}
+            />
+          </div>
+          
+          <div className="relative max-w-5xl mx-auto px-4 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-8">
+                Ready to Start Your Journey?
+              </h2>
+              <p className="text-2xl text-blue-100 mb-12 max-w-3xl mx-auto">
+                Join thousands of changemakers creating lasting impact across Kenya
+              </p>
+
+              <motion.div
+                className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <motion.button
+                  onClick={() => payWithPaystack()}
+                  className="inline-flex items-center px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all duration-300 text-xl shadow-2xl"
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.2)" }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Donate Now
+                  <svg className="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </motion.button>
+
+                <motion.a
+                  href="/contact"
+                  className="inline-flex items-center px-10 py-5 border-2 border-white text-white hover:bg-white hover:text-purple-900 font-bold rounded-full transition-all duration-300 text-xl"
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Have Questions?
+                </motion.a>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+      </motion.main>
+    </>
   )
 }
 
